@@ -37,11 +37,16 @@ RUN mkdir /var/www/onion
 RUN chown root:tor /var/www/onion
 RUN chmod 775 /var/www/onion
 
+#copy all project files to onion folder
 COPY . /var/www/onion
+RUN cd /var/www/onion
 
-#RUN cd /var/www/onion
+#Install Laravel project
+#Database
+#Composer
+
+
 #RUN echo "<html><head><title>Your Tor site is online</title></head><body>Welcome to the Deepweb</body></html>" > index.html
-
 #edit files tor config
 RUN sed -i 's,#HiddenServiceDir /var/lib/tor/hidden_service/,HiddenServiceDir /var/lib/tor/hidden_service/,g' /etc/tor/torrc
 RUN sed -i '0,/#HiddenServicePort 80 127.0.0.1:80/s//HiddenServicePort 80 0.0.0.0:9090/g' /etc/tor/torrc
