@@ -32,46 +32,31 @@ RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 RUN service nginx start
 #Start Tor Service
 RUN service tor start
-#Check if Tor service is running
-#RUN service tor status
 
-#Add user tor and auto login
-RUN useradd -ms /bin/bash tor
-#USER tor
-#WORKDIR /home/tor
-
-
-
-RUN mkdir /var/www/onion
-RUN chown root:tor /var/www/onion
-RUN chmod 775 /var/www/onion
-
-#copy all project files to onion folder
-COPY . /var/www/onion
-RUN cd /var/www/onion
-
-#----------------------------------------
+#copy all project files to html folder
+COPY . /var/www/html
+RUN cd /var/www/html
 
 #Install Laravel project
 
 
 #Database
 
-#---------------------------------------
+RUN killal tor
 
 #RUN echo "<html><head><title>Your Tor site is online</title></head><body>Welcome to the Deepweb</body></html>" > index.html
 #edit files tor config
 RUN sed -i 's,#HiddenServiceDir /var/lib/tor/hidden_service/,HiddenServiceDir /var/lib/tor/hidden_service/,g' /etc/tor/torrc
-RUN sed -i '0,/#HiddenServicePort 80 127.0.0.1:80/s//HiddenServicePort 80 0.0.0.0:9090/g' /etc/tor/torrc
-RUN sed -i 's,#SocksPort 9050 # Default: Bind to localhost:9050 for local connections.,SocksPort 9050 # Default: Bind to localhost:9050 for local connections.,g' /etc/tor/torrc
+RUN sed -i '0,/#HiddenServicePort 80 127.0.0.1:80/s//HiddenServicePort 80 0.0.0.0:8080/g' /etc/tor/torrc
+#RUN sed -i 's,#SocksPort 9050 # Default: Bind to localhost:9050 for local connections.,SocksPort 9050 # Default: Bind to localhost:9050 for local connections.,g' /etc/tor/torrc
 
 #restart tor service
 RUN service tor restart
 
-#get your .onion adress/lib/tor/hidden_service
+#get your .html adress/lib/tor/hidden_service
 RUN echo $HOSTNAME
 
-RUN cd /var/www/onion
-CMD service tor restart ; python3 -m http.server --bind 0.0.0.0 9090
+RUN cd /var/www/html
+CMD service tor restart ; python3 -m http.server --bind 0.0.0.0 8080
 
 
