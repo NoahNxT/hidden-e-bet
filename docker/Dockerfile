@@ -34,7 +34,7 @@ RUN service nginx start
 RUN service tor start
 
 #copy all project files to html folder
-COPY ./ /var/www/html
+COPY . /var/www/html
 RUN cd /var/www/html
 
 #Install Laravel project
