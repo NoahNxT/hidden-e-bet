@@ -8,13 +8,22 @@ ARG HOSTNAME="cat /var/lib/tor/hidden_service/hostname"
 
 
 #installs
+ARG DEBIAN_FRONTEND=noninteractive
+
 RUN apt-get update && apt-get install -y \
     nano \
     psmisc \
-    tor \
     lsof\
-    nginx\
-    python3
+    nginx \
+    python3 \
+    php-cli unzip \
+    git \
+    curl \
+    libpng-dev \
+    libonig-dev \
+    libxml2-dev \
+    zip \
+    unzip
 
 RUN apt-get install tor -y
 
@@ -41,10 +50,14 @@ RUN chmod 775 /var/www/onion
 COPY . /var/www/onion
 RUN cd /var/www/onion
 
-#Install Laravel project
-#Database
-#Composer
+#----------------------------------------
 
+#Install Laravel project
+
+
+#Database
+
+#---------------------------------------
 
 #RUN echo "<html><head><title>Your Tor site is online</title></head><body>Welcome to the Deepweb</body></html>" > index.html
 #edit files tor config
