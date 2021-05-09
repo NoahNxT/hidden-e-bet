@@ -6,142 +6,95 @@
                 <div class="card-body">
                     <h1>E-sports betting anonymously with bitcoins</h1>
                     <div class="card-deck">
-                        <div class="card mb-3 w-50">
+                        {{--<div class="card mb-3 w-100">
                             <div class="card-header">
-                                Featured
-                            </div>
-                            <div class="card-body">
-                                <h5 class="card-title">Special title treatment</h5>
-                                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                            </div>
-                        </div>
-                        <div class="card mb-3 w-50">
-                            <div class="card-header">
-                                Featured
-                            </div>
-                            <div class="card-body">
-                                <h5 class="card-title">Special title treatment</h5>
-                                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                            </div>
-                        </div>
-                    </div>
+                                <img src="{{ asset('img/livebox.svg') }}" height="18">
+                                <small><b>27.04.2021, 10.40PM</b></small>
+                                <img class="float-right ml-2" src="{{ asset('img/csgo_icon.png') }}" width="18" height="18">
+                                <small class="float-sm-right">Perfect World League Season 1 2021</small>
 
-                    <div class="card-deck">
-                        <div class="card mb-3 w-50">
-                            <div class="card-header">
-                                Featured
                             </div>
-                            <div class="card-body">
-                                <h5 class="card-title">Special title treatment</h5>
-                                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                            <div class="img-wrapper">
+                                <img class="" src="{{ asset('img/Tournament banners/Perfect World League S1.jpeg') }}" alt="Card image cap">
                             </div>
-                        </div>
-                        <div class="card mb-3 w-50">
-                            <div class="card-header">
-                                Featured
-                            </div>
-                            <div class="card-body">
-                                <h5 class="card-title">Special title treatment</h5>
-                                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                            </div>
-                        </div>
-                    </div>
+                            asdacsd
+                            --}}{{--<div class="card-body">
 
-                    <div class="card-deck">
-                        <div class="card mb-3 w-50">
-                            <div class="card-header">
-                                Featured
-                            </div>
-                            <div class="card-body">
-                                <h5 class="card-title">Special title treatment</h5>
-                                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                            </div>
-                        </div>
-                        <div class="card mb-3 w-50">
-                            <div class="card-header">
-                                Featured
-                            </div>
-                            <div class="card-body">
-                                <h5 class="card-title">Special title treatment</h5>
-                                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                            </div>
-                        </div>
-                    </div>
 
-                    <div class="card-deck">
-                        <div class="card mb-3 w-50">
-                            <div class="card-header">
-                                Featured
-                            </div>
-                            <div class="card-body">
-                                <h5 class="card-title">Special title treatment</h5>
-                                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                            </div>
-                        </div>
-                        <div class="card mb-3 w-50">
-                            <div class="card-header">
-                                Featured
-                            </div>
-                            <div class="card-body">
-                                <h5 class="card-title">Special title treatment</h5>
-                                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                            </div>
-                        </div>
-                    </div>
+                                <div class=" row">
+                                        <img src="{{ asset('img/Team Icons/Astralis.png') }}" width="18px">
 
-                    <div class="card-deck">
-                        <div class="card mb-3 w-50">
-                            <div class="card-header">
-                                Featured
-                            </div>
-                            <div class="card-body">
-                                <h5 class="card-title">Special title treatment</h5>
-                                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                            </div>
-                        </div>
-                        <div class="card mb-3 w-50">
-                            <div class="card-header">
-                                Featured
-                            </div>
-                            <div class="card-body">
-                                <h5 class="card-title">Special title treatment</h5>
-                                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                            </div>
-                        </div>
-                    </div>
 
-                    <div class="card-deck">
-                        <div class="card mb-3 w-50">
-                            <div class="card-header">
-                                Featured
-                            </div>
-                            <div class="card-body">
-                                <h5 class="card-title">Special title treatment</h5>
-                                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                            </div>
-                        </div>
-                        <div class="card mb-3 w-50">
-                            <div class="card-header">
-                                Featured
-                            </div>
-                            <div class="card-body">
-                                <h5 class="card-title">Special title treatment</h5>
-                                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                            </div>
-                        </div>
-                    </div>
+                                        <img src="{{ asset('img/vs.png') }}">
 
-                    <div class="card-deck">
-                        <div class="card mb-3 w-50">
-                            <div class="card-header">
-                                Featured
+
+                                        <img src="{{ asset('img/Team Icons/ViCi.png') }}" width="18px">
+
+                                </div>
                             </div>
-                            <div class="card-body">
-                                <h5 class="card-title">Special title treatment</h5>
-                                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+--}}{{--
+
+                        </div>--}}
+
+
+
+                        {{--     <div class="card">
+                                 <div class="card-header">
+                                     <img src="{{ asset('img/livebox.svg') }}" height="18">
+                                     <small><b>27.04.2021, 10.40PM</b></small>
+                                     <img class="float-right ml-2" src="{{ asset('img/csgo_icon.png') }}" width="18" height="18">
+                                     <small class="float-sm-right">Perfect World League Season 1 2021</small>
+
+                                 </div>
+                                 <div class="row" style="height: 20px;">
+                                     <div class="col-md-8 px-3">
+                                         <div class="card-block px-3">
+                                             <div class=" row">
+                                                 <img src="{{ asset('img/Team Icons/Astralis.png') }}" width="18px">
+
+
+                                                 <img src="{{ asset('img/vs.png') }}">
+
+
+                                                 <img src="{{ asset('img/Team Icons/ViCi.png') }}" width="18px">
+
+                                             </div>
+                                         </div>
+                                     </div>
+                                     <div class="col-md-4">
+                                         <img src="{{ asset('img/Tournament banners/Perfect World League S1.jpeg') }}" width="100%" height="100%">
+                                     </div>
+                                 </div>
+                             </div>--}}
+
+
+                        <div class="card mb-3">
+                            <div class="card-header">
+                                <img src="{{ asset('img/livebox.svg') }}" height="18">
+                                <small><b>27.04.2021, 10.40PM</b></small>
+                                <img class="float-right ml-2" src="{{ asset('img/csgo_icon.png') }}" width="18" height="18">
+                                <small class="float-sm-right">Perfect World League Season 1 2021</small>
+
+                            </div>
+                            <div class="h-100 row no-gutters">
+                                <div class="col-8">
+                                    <div class="card-body">
+                                        <img src="{{ asset('img/Team Icons/Astralis.png') }}" height="60px">
+                                        
+                                        <img src="{{ asset('img/vs.png') }}">
+                                        ViCi
+                                        x1.86
+
+                                        <img src="{{ asset('img/Team Icons/ViCi.png') }}" height="60px">
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <img src="{{ asset('img/Tournament banners/Perfect World League S1.jpeg') }}" class="card-img" height="100%">
+                                </div>
                             </div>
                         </div>
-                        <div class="card mb-3 w-50">
+
+                        <div class="card mb-3 w-100">
                             <div class="card-header">
                                 Featured
                             </div>
