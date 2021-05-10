@@ -1,6 +1,9 @@
 <?php
 
+use App\Http\Controllers\CsgoController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\LolController;
+use App\Http\Controllers\WalletController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,3 +18,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [DashboardController::class, 'index'])->name('Dashboard');
+Route::get('/csgo', [CsgoController::class, 'index'])->name('CSGO');
+Route::get('/lol', [LolController::class, 'index'])->name('LOL');
+Route::get('/wallet', [WalletController::class, 'index'])->name('Wallet');
+

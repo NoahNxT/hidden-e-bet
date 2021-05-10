@@ -8,7 +8,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
 
-
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
 
     <title>Hidden E-Bet</title>
 </head>
@@ -24,26 +24,19 @@
     <div class="collapse navbar-collapse" id="navbarText">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="{{ route('Dashboard') }}">Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Games
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                    <a class="dropdown-item" href="#">CS:GO</a>
-                    <a class="dropdown-item" href="#">LOL</a>
+                    <a class="dropdown-item" href="{{ route('CSGO') }}"><img src="{{ asset('img/csgo_icon.png') }}" height="18px"> CS:GO</a>
+                    <a class="dropdown-item" href="{{ route('LOL') }}"><img src="{{ asset('img/lol_icon.png') }}" height="18px"> LOL</a>
                 </div>
             </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Wallet
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                    <a class="dropdown-item" href="#">Deposit</a>
-                    <a class="dropdown-item" href="#">Withdraw</a>
-                    <a class="dropdown-item" href="#">History</a>
-                </div>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('Wallet') }}">Wallet</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#">About</a>
