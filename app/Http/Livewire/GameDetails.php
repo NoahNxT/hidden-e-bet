@@ -7,11 +7,15 @@ use Livewire\Component;
 class GameDetails extends Component
 {
     protected $listeners = ['newCsgoData', 'refreshComponent' => '$refresh'];
+    public $dataCsgo;
 
-
+    /**
+     * @throws \JsonException
+     */
     public function newCsgoData($data)
     {
-        ray($data);
+        $this->dataCsgo = json_decode($data);
+        ray( $this->dataCsgo)->die();
         $this->emit('refreshComponent');
         ray('refreshed');
     }
