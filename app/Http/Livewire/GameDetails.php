@@ -71,8 +71,19 @@ class GameDetails extends Component
             ['MVP' => $this->playerMVPs],
         ];
 
+        if ($this->team1Score !== 0)
+        {
         $this->team1Percentage = ($this->team1Score /  ($this->team2Score + $this->team1Score)) * 100;
-        $this->team2Percentage = ($this->team2Score /  ($this->team2Score + $this->team1Score)) * 100;
+        }else{
+            $this->team1Percentage = 50;
+        }
+        if ($this->team2Score !== 0)
+        {
+            $this->team2Percentage = ($this->team2Score /  ($this->team2Score + $this->team1Score)) * 100;
+        }else{
+            $this->team2Percentage = 50;
+        }
+
 
         $this->emit('refreshComponent');
     }
