@@ -14,6 +14,8 @@ class GameDetails extends Component
     public $playerMVPs = [];
     public $team1 = [];
     public $team2 = [];
+    public $team1Percentage = 50;
+    public $team2Percentage = 50;
     protected $listeners = ['newCsgoData', 'refreshComponent' => '$refresh'];
 
     public function newCsgoData($data)
@@ -24,6 +26,7 @@ class GameDetails extends Component
         $this->playerDeaths = [];
         $this->playerMVPs = [];
         $this->dataCsgo = $data;
+        $this->team2Score =$this->dataCsgo['Team2'][0]['Score'];
         //ray( $this->dataCsgo)->die();
 
         //ray('refreshed');
@@ -39,7 +42,7 @@ class GameDetails extends Component
                         ['Kills' => $this->playerKills],
                         ['Assists' => $this->playerAssists],
                         ['Deaths' => $this->playerDeaths],
-                        ['MVP' => $this->playerMVPs]
+                        ['MVP' => $this->playerMVPs],
 
         ];
 
@@ -48,7 +51,9 @@ class GameDetails extends Component
         $this->playerAssists = [];
         $this->playerDeaths = [];
         $this->playerMVPs = [];
+        $this->team1Score =$this->dataCsgo['Team1'][0]['Score'];
         //ray( $this->dataCsgo)->die();
+
         $this->emit('refreshComponent');
         //ray('refreshed');
         for ($y = 1; $y <= 5; $y++) {
@@ -63,14 +68,14 @@ class GameDetails extends Component
             ['Kills' => $this->playerKills],
             ['Assists' => $this->playerAssists],
             ['Deaths' => $this->playerDeaths],
-            ['MVP' => $this->playerMVPs]
-
+            ['MVP' => $this->playerMVPs],
         ];
 
-        $this->emit('refreshComponent');
-        //ray($this->dataCsgo['Status']);
-    }
+        $this->team1Percentage = ($this->team1Score /  ($this->team2Score + $this->team1Score)) * 100;
+        $this->team2Percentage = ($this->team2Score /  ($this->team2Score + $this->team1Score)) * 100;
 
+        $this->emit('refreshComponent');
+    }
 
     public function render()
     {

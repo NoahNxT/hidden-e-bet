@@ -85,8 +85,8 @@
             </div>
             <div class="row d-flex justify-content-center text-center mt-3">
                 <div class="progress w-100">
-                    <div class="progress-bar bg-warning" role="progressbar" style="width: 60%" aria-valuenow="50" aria-valuemin="50" aria-valuemax="50"></div>
-                    <div class="progress-bar bg-danger" role="progressbar" style="width: 40%" aria-valuenow="50" aria-valuemin="50" aria-valuemax="50"></div>
+                    <div class="progress-bar bg-warning" role="progressbar" style="width: {{$team1Percentage}}%" aria-valuenow="50" aria-valuemin="50" aria-valuemax="50"></div>
+                    <div class="progress-bar bg-danger" role="progressbar" style="width: {{$team2Percentage}}%" aria-valuenow="50" aria-valuemin="50" aria-valuemax="50"></div>
                 </div>
             </div>
             <div class="row mt-5">
