@@ -103,9 +103,9 @@
                                     <p class="text-body">Free </p>
                                 </div>
                                 <div class="col-xl-6">
-                                    <p class="text-body"><b>1360 TOKENS ($ 1360)</b></p>
-                                    <p class="text-danger"><b>1360 TOKENS ($ 1360)</b></p>
-                                    <p class="text-success"><b>1360 TOKENS ($ 1360)</b></p>
+                                    <p class="text-body"><b>{{Auth::user()->tokens}} TOKENS ($ {{Auth::user()->tokens}})</b></p>
+                                    <p class="text-danger"><b>{{Auth::user()->in_bet_tokens}} TOKENS ($ {{Auth::user()->in_bet_tokens}})</b></p>
+                                    <p class="text-success"><b>{{Auth::user()->tokens - Auth::user()->in_bet_tokens}} TOKENS ($ {{Auth::user()->tokens - Auth::user()->in_bet_tokens}})</b></p>
                                     <span class="inline">
                                 <button type="button" class="btn btn-info">Deposit</button>
                                 <button type="button" class="btn btn-info">Withdraw</button>

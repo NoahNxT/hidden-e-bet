@@ -20,7 +20,8 @@ class UserSeeder extends Seeder
                 'name' => 'Noah',
                 'email' => 'noah@bet.be',
                 'password' => Hash::make('testtest'),
-                'tokens' => 100
+                'tokens' => 100,
+                'in_bet_tokens' => 25,
             ]
         );
     }
