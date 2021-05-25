@@ -1,7 +1,7 @@
 <div>
     <div class="card text-center">
         <div class="card-body" style="background-color: #EFEFEF;">
-            <div class="row ml-1" >
+            <div class="row ml-1">
                 @if(!isset($dataCsgo['Status'] ))
                     <h5 class="text-danger mr-1"><b>ERROR </b></h5>
                 @elseif($dataCsgo['Status'] === "Upcoming")
@@ -85,8 +85,15 @@
             </div>
             <div class="row d-flex justify-content-center text-center mt-3">
                 <div class="progress w-100">
-                    <div class="progress-bar bg-warning" role="progressbar" style="width: {{$team1Percentage}}%" aria-valuenow="50" aria-valuemin="50" aria-valuemax="50"></div>
-                    <div class="progress-bar bg-danger" role="progressbar" style="width: {{$team2Percentage}}%" aria-valuenow="50" aria-valuemin="50" aria-valuemax="50"></div>
+                    @if ($team1Percentage !== 0)
+                        <div class="progress-bar bg-warning" role="progressbar" style="width: {{$team1Percentage}}%" aria-valuenow="50" aria-valuemin="50"
+                             aria-valuemax="50"></div>
+                        <div class="progress-bar bg-danger" role="progressbar" style="width: {{$team2Percentage}}%" aria-valuenow="50" aria-valuemin="50"
+                             aria-valuemax="50"></div>
+                    @else
+                        <div class="progress-bar bg-info" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0"
+                             aria-valuemax="100"></div>
+                    @endif
                 </div>
             </div>
             <div class="row mt-5">
@@ -152,12 +159,10 @@
     window.addEventListener('DOMContentLoaded', function () {
         Echo.channel('csgo')
             .listen('.match-data-csgo', (e) => {
-                console.log(e);
+
                 window.livewire.emit('newCsgoData', e)
 
             });
-
-
     })
-
+    
 </script>
