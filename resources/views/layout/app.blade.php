@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+          integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{{ mix('css/app.css')}}">
@@ -29,7 +30,8 @@
                 <a class="nav-link" href="{{ route('Dashboard') }}">Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true"
+                   aria-expanded="false">
                     Games
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
@@ -37,35 +39,66 @@
                     <a class="dropdown-item" href="{{ route('LOL') }}"><img src="{{ asset('img/lol_icon.png') }}" height="18px"> LOL</a>
                 </div>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('Wallet') }}">Wallet</a>
-            </li>
+            @if (Auth::check())
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('Wallet') }}">Wallet</a>
+                </li>
+            @endif
             <li class="nav-item">
                 <a class="nav-link" href="#">About</a>
             </li>
         </ul>
-        <span class="navbar-text">
-            <button type="button" class="btn btn-info">Login</button>
-            <button type="button" class="btn btn-info">Signup</button>
-    </span>
+
+        @guest
+            <span class="navbar-text">
+                @if (Route::has('login'))
+                    <button type="button" class="btn btn-info"><a href='{{route('login')}}' alt='Signup'>Login</a></button>
+                @endif
+                @if (Route::has('register'))
+                    <button type="button" class="btn btn-info"><a href='{{route('register')}}' alt='Signup'>Signup</a></button>
+                @endif
+            </span>
+        @else
+            <span class="navbar-text">
+                <a class="text-muted">Welcome! </a>
+                <a id="username" class="text mr-2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true"
+                   aria-expanded="false" v-pre>
+                    {{ Auth::user()->name }}
+                </a>
+
+                <button type="button" class="btn btn-danger">
+                    <a class="" href="{{ route('logout') }}"
+                       onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                        {{ __('Logout') }}
+                    </a>
+                </button>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                        @csrf
+                    </form>
+
+
+
+            </span>
+        @endguest
     </div>
 </nav>
 
-    <div class="row justify-content-center pt-3 px-2">
-        <div class="col-12">
-            @yield('content')
-        </div>
+<div class="row justify-content-center pt-3 px-2">
+    <div class="col-12">
+        @yield('content')
     </div>
-
-
-
+</div>
 
 
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js"
+        integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF" crossorigin="anonymous"></script>
 @livewireScripts
 
 </body>
