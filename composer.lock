@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "24877c00376edaf73f9784112ccbfdd8",
+    "content-hash": "e2c4e8a2d9bf4672e90b4b7b46ebc45c",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -170,6 +170,50 @@
                 }
             ],
             "time": "2021-01-20T22:51:39+00:00"
+        },
+        {
+            "name": "coinremitter/laravel",
+            "version": "0.1.7",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/CoinRemitter/coinremitter-laravel.git",
+                "reference": "618828c4911b66395fb78b955cea278d6957b602"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/CoinRemitter/coinremitter-laravel/zipball/618828c4911b66395fb78b955cea278d6957b602",
+                "reference": "618828c4911b66395fb78b955cea278d6957b602",
+                "shasum": ""
+            },
+            "require": {
+                "laravel/framework": ">=7.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "0.1-dev"
+                },
+                "laravel": {
+                    "providers": [
+                        "Coinremitter\\CoinremiterServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Coinremitter\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Official laravel plugin for coinremitter cryptocurrency payment gateway",
+            "support": {
+                "issues": "https://github.com/CoinRemitter/coinremitter-laravel/issues",
+                "source": "https://github.com/CoinRemitter/coinremitter-laravel/tree/0.1.7"
+            },
+            "time": "2020-12-25T05:46:03+00:00"
         },
         {
             "name": "dasprid/enum",
