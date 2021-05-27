@@ -154,9 +154,10 @@
     window.addEventListener('DOMContentLoaded', function () {
         Echo.channel('csgo')
             .listen('.match-data-csgo', (e) => {
-
                 window.livewire.emit('newCsgoData', e)
-
+                window.livewire.on('UpdateMatchDataCsgo', () => {
+                    // Code Here
+                })
             });
     })
 

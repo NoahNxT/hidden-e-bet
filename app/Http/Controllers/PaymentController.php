@@ -3,33 +3,19 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\DepositWithdrawRequest;
-use Illuminate\Http\Request;
-use Illuminate\Routing\Controller;
+use App\Models\TransactionHistory;
 use Coinremitter\Coinremitter;
+use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
-
 
 
 class PaymentController extends Controller
 {
+
+    public $invoice = null;
+
     public function index()
     {
-        $btc_wallet = new Coinremitter('BTC');
-        /*$balance = $btc_wallet->get_balance();*/
-        $param = [
-            'amount' => 0.0001,      //required.
-            'notify_url'=>'https://b7ee816a5071.ngrok.io/api/v1/payment', //optional,url on which you wants to receive notification,
-            'fail_url' => 'https://b7ee816a5071.ngrok.io/api/v1/payment/fail', //optional,url on which user will be redirect if user cancel invoice,
-            'suceess_url' => 'reddit.com', //optional,url on which user will be redirect when invoice paid,
-            'name'=>Auth::user()->name.' deposit',//optional,
-            'expire_time'=>'20',//optional, invoice will expire in 20 minutes.
-            'description'=>'Deposit of funds into Hidden E-Bet',//optional.
-        ];
-
-        ray($param);
-        $invoice  = $btc_wallet->create_invoice($param);
-
-        ray($invoice);
         return view('pay.deposit');
     }
 
@@ -37,21 +23,59 @@ class PaymentController extends Controller
     {
         $btc_wallet = new Coinremitter('BTC');
         $rate = $btc_wallet->get_coin_rate();
-
-        (float)$convertUsdToBtc = ((1 / $rate['data']['BTC']['price']) * ($request->amount )) * 1.23;
+        $tokens = $request->amount;
+        (float)$convertUsdToBtc = ((1 / $rate['data']['BTC']['price']) * ($tokens)) * 1.23;
 
         $param = [
-            'amount' => number_format($convertUsdToBtc, 8),      //required.
-            'notify_url'=>' https://82bfb5300790.ngrok.io/api/v1/payment', //optional,url on which you wants to receive notification,
-            'fail_url' => env('APP_URL'), //optional,url on which user will be redirect if user cancel invoice,
-            'suceess_url' => env('APP_URL'), //optional,url on which user will be redirect when invoice paid,
-            'name'=>Auth::user()->name,//optional,
-            'expire_time'=>'20',//optional, invoice will expire in 20 minutes.
-            'description'=>'Deposit of funds into Hidden E-Bet',//optional.
+            'amount' => number_format($convertUsdToBtc, 8),
+            //required.
+            'notify_url' => 'https://3d4062852a10.ngrok.io/api/v1/payment',
+            //optional,url on which you wants to receive notification,
+            'fail_url' => env('APP_URL'),
+            //optional,url on which user will be redirect if user cancel invoice,
+            'suceess_url' => env('APP_URL'),
+            //optional,url on which user will be redirect when invoice paid,
+            'name' => Auth::user()->name,
+            //optional,
+            'expire_time' => '20',
+            //optional, invoice will expire in 20 minutes.
+            'description' => 'Deposit of funds into Hidden E-Bet',
+            //optional.
         ];
 
-        $invoice  = $btc_wallet->create_invoice($param);
+        $invoice = $btc_wallet->create_invoice($param);
+
+        $yeet = $this->pending($invoice, $tokens);
+
 
         return redirect($invoice['data']['url']);
+    }
+
+    public function pending(array $invoice, int $tokens)
+    {
+        /*Set status to pending payment (not yet payed) */
+        ray($invoice);
+
+        if ($invoice['data']['status'] === 'Pending') {
+            ray('it works');
+
+           $transactionRecord =  TransactionHistory::create(
+                [
+                    'user_id' => Auth::user()->id,
+                    'invoice_id' => $invoice['data']['invoice_id'],
+                    'transaction' => 'deposit',
+                    'btc_amount' => $invoice['data']['total_amount']['BTC'],
+                    'usd_amount' => $invoice['data']['total_amount']['USD'],
+                    'transferred_tokens' => $tokens,
+                    'invoice_url' => $invoice['data']['url'],
+                    'status' => $invoice['data']['status'],
+
+                ]
+            );
+
+           ray($transactionRecord);
+        }
+
+        return null;
     }
 }
