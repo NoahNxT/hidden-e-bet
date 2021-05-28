@@ -23,13 +23,14 @@ class PaymentController extends Controller
     {
         $btc_wallet = new Coinremitter('BTC');
         $rate = $btc_wallet->get_coin_rate();
+        /*ray($rate);*/
         $tokens = $request->amount;
         (float)$convertUsdToBtc = ((1 / $rate['data']['BTC']['price']) * ($tokens)) * 1.23;
 
         $param = [
             'amount' => number_format($convertUsdToBtc, 8),
             //required.
-            'notify_url' => 'https://3d4062852a10.ngrok.io/api/v1/payment',
+            'notify_url' => 'https://a7557ddd9237.ngrok.io/api/v1/payment',
             //optional,url on which you wants to receive notification,
             'fail_url' => env('APP_URL'),
             //optional,url on which user will be redirect if user cancel invoice,

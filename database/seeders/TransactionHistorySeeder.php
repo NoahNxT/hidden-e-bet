@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use Coinremitter\Coinremitter;
+use Database\Factories\TransactionHistoryFactory;
 use Illuminate\Database\Seeder;
 
 class TransactionHistorySeeder extends Seeder
@@ -13,6 +15,8 @@ class TransactionHistorySeeder extends Seeder
      */
     public function run()
     {
-        //
+        for ($x = 28200; $x <= 28210; $x++) {
+            TransactionHistoryFactory::times(1)->withX($x)->create();
+        }
     }
 }

@@ -18,8 +18,8 @@ class CreateTransactionHistoriesTable extends Migration
             $table->integer('user_id');
             $table->text('invoice_id');
             $table->enum('transaction', ['deposit', 'withdraw']);
-            $table->float('btc_amount', 9,8);
-            $table->float('usd_amount', 9, 8);
+            $table->float('btc_amount', 15,8);
+            $table->float('usd_amount', 15, 8);
             $table->integer('transferred_tokens');
             $table->text('txid')->nullable();
             $table->text('invoice_url');

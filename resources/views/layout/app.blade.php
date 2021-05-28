@@ -118,7 +118,7 @@
                                     @csrf
                                     <div class="row">
                                         <div class="col-xl-4">
-                                            <input class="form-control form-control-md w-100 mt-1" type="text" placeholder="Tokens" name="amount" min="5" required>
+                                            <input class="form-control form-control-md w-100 mt-1" type="text" placeholder="$$$" name="amount" min="5" required>
 
 
                                         </div>
@@ -129,7 +129,7 @@
                                             <button type="submit" class="btn btn-info w-100 mt-1">Withdraw</button>
                                         </div>
                                     </div>
-                                    <small id="depositWithdrawHelp" class="form-text text-muted mx-1">1 Token is $1, 0.23 will be added as feed to your selected
+                                    <small id="depositWithdrawHelp" class="form-text text-muted mx-1">There will be a fee on your transaction.
                                         amount</small>
                                     @if ($errors->any())
                                         <div class="alert alert-danger mt-3">
