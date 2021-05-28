@@ -28,7 +28,7 @@ Route::group(
     ],
     function () {
         Route::post('match', [ApiController::class, 'matchData']);
-        Route::post('payment', [ApiController::class, 'payment']);
+        Route::post('payment', [ApiController::class, 'payment'])->name('payment');
         Route::post('payment/confirm', [ApiController::class, 'paymentConfirm']);
         Route::post('payment/fail', [ApiController::class, 'paymentFail']);
 

@@ -45,7 +45,7 @@ class PaymentController extends Controller
 
         $invoice = $btc_wallet->create_invoice($param);
 
-        $yeet = $this->pending($invoice, $tokens);
+        $this->pending($invoice, $tokens);
 
 
         return redirect($invoice['data']['url']);
@@ -54,11 +54,9 @@ class PaymentController extends Controller
     public function pending(array $invoice, int $tokens)
     {
         /*Set status to pending payment (not yet payed) */
-        ray($invoice);
+        //ray($invoice);
 
         if ($invoice['data']['status'] === 'Pending') {
-            ray('it works');
-
            $transactionRecord =  TransactionHistory::create(
                 [
                     'user_id' => Auth::user()->id,
@@ -73,9 +71,7 @@ class PaymentController extends Controller
                 ]
             );
 
-           ray($transactionRecord);
+           //ray($transactionRecord);
         }
-
-        return null;
     }
 }

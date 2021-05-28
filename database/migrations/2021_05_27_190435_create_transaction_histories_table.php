@@ -23,7 +23,7 @@ class CreateTransactionHistoriesTable extends Migration
             $table->integer('transferred_tokens');
             $table->text('txid')->nullable();
             $table->text('invoice_url');
-            $table->enum('status', ['Pending','Paid', 'Underpaid','Overpaid', 'Expired', 'Cancelled']);
+            $table->enum('status', ['Pending','Paid', 'Under paid','Over paid', 'Expired', 'Cancelled']);
             $table->timestamps();
         });
     }
