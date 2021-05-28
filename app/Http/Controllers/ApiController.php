@@ -15,7 +15,7 @@ class ApiController extends Controller
     {
         ray($request);
 
-        return '';
+        return null;
     }
 
     public function paymentConfirm(Request $request)

@@ -10,56 +10,39 @@
                 <tr>
                     <th scope="col"></th>
                     <th scope="col">Amount</th>
+                    <th scope="col">Status</th>
                     <th scope="col">Tokens</th>
                     <th scope="col">TXID</th>
                     <th scope="col">Date</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <th scope="row"><i class="fas fa-money-bill-alt text-danger"></i></th>
-                    <td class="text-danger">- $ 32 (0.00342 BTC)</td>
-                    <td>32 tokens</td>
-                    <td>f4184fc596403b9d638783c...</td>
-                    <td>23/11/2020 11:33 AM</td>
-                </tr>
-                <tr>
-                    <th scope="row"><i class="fas fa-money-bill-alt text-success"></i></th>
-                    <td class="text-success">+ $ 15 (0.00342 BTC)</td>
-                    <td>15 tokens</td>
-                    <td>f4184fc596403b9d638783c...</td>
-                    <td>23/11/2020 11:33 AM</td>
-                </tr>
-                <tr>
-                    <th scope="row"><i class="fas fa-money-bill-alt text-success"></i></th>
-                    <td class="text-success">+ $ 15 (0.00342 BTC)</td>
-                    <td>15 tokens</td>
-                    <td>f4184fc596403b9d638783c...</td>
-                    <td>23/11/2020 11:33 AM</td>
-                </tr>
-                <tr>
-                    <th scope="row"><i class="fas fa-money-bill-alt text-danger"></i></th>
-                    <td class="text-danger">- $ 55 (0.00342 BTC)</td>
-                    <td>55 tokens</td>
-                    <td>f4184fc596403b9d638783c...</td>
-                    <td>23/11/2020 11:33 AM</td>
-                </tr>
-                <tr>
-                    <th scope="row"><i class="fas fa-money-bill-alt text-success"></i></th>
-                    <td class="text-success">+ $ 15 (0.00342 BTC)</td>
-                    <td>15 tokens</td>
-                    <td>f4184fc596403b9d638783c...</td>
-                    <td>23/11/2020 11:33 AM</td>
-                </tr>
-                <tr>
-                    <th scope="row"><i class="fas fa-money-bill-alt text-danger"></i></th>
-                    <td class="text-danger">- $ 143 (0.00342 BTC)</td>
-                    <td>143 tokens</td>
-                    <td>f4184fc596403b9d638783c...</td>
-                    <td>23/11/2020 11:33 AM</td>
-                </tr>
+                @foreach($transactionHistory as $transaction)
+                    <tr>
+                        @if($transaction->transaction === 'deposit')
+                            <th scope="row">
+                                <i class="fas fa-money-bill-alt text-success"></i>
+                            </th>
+                            <td><a class="link-success" href="{{ $transaction->invoice_url }}">+ ${{ $transaction->usd_amount }} ({{ $transaction->btc_amount }}
+                                    BTC)</a></td>
+                        @else
+                            <th scope="row">
+                                <i class="fas fa-money-bill-alt text-danger"></i>
+                            </th>
+                            <td class="text-danger"><a class="link-success" href="{{ $transaction->invoice_url }}">- ${{ $transaction->usd_amount }}
+                                    ({{ $transaction->btc_amount }} BTC)</a></td>
+                        @endif
+                        <td><strong></bold>{{ $transaction-> status}}</strong></td>
+                        <td>{{ $transaction->transferred_tokens }} tokens</td>
+                        <td>{{ $transaction->txid }}</td>
+                        <td>{{ $transaction->created_at->diffForHumans() }}</td>
+                    </tr>
+                @endforeach
                 </tbody>
             </table>
+            <div class="d-flex justify-content-end">
+                {!! $transactionHistory->links() !!}
+            </div>
 
             <h6><img src="{{ asset('img/history_icon.png') }}" height="20px"><b> Bet History</b></h6>
             <table class="table table-striped">

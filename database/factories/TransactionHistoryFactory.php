@@ -32,6 +32,9 @@ class TransactionHistoryFactory extends Factory
         $status = $this->faker->randomElement(
             ['Pending', 'Paid', 'Under paid', 'Over paid', 'Expired', 'Cancelled']
         );
+        $transaction = $this->faker->randomElement(
+            ['deposit', 'withdraw']
+        );
 
         if ($status === 'Cancelled' || $status === 'Expired' || $status === 'Pending') {
             $txid = null;
@@ -42,7 +45,7 @@ class TransactionHistoryFactory extends Factory
         return [
             'user_id' => 1,
 
-            'transaction' => 'deposit',
+            'transaction' => $transaction,
             'btc_amount' => $randomBtcAmount,
             'usd_amount' => $btcToUsd,
             'transferred_tokens' => $convertUsdToTokens,
