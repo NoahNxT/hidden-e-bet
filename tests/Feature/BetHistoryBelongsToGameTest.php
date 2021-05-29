@@ -34,7 +34,7 @@ class BetHistoryBelongsToGameTest extends TestCase
     {
         $game = Game::factory()->create();
         $user = User::factory()->create();
-        $bethistory = BetHistory::factory()->create();
+        $bethistory = BetHistory::factory()->create(['user_id' => 1]);
 
         $this->assertEquals(1, $bethistory->game->count());
 

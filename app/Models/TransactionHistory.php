@@ -43,14 +43,6 @@ class TransactionHistory extends Model
 {
     use HasFactory;
 
-    public $sortable = [
-        'btc_amount',
-        'usd_amount',
-        'transferred_tokens',
-        'txid',
-        'invoice_url',
-        'status',
-    ];
     protected $fillable = [
         'user_id',
         'invoice_id',
