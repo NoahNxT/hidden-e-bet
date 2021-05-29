@@ -10,17 +10,17 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Schema;
 use Tests\TestCase;
 
-class BetHistoryBelongsToUserTest extends TestCase
+class BetHistoryBelongsToGameTest extends TestCase
 {
     use RefreshDatabase, WithFaker;
 
-    public function table_users_and_bet_history_have_expected_columns()
+    public function table_games_and_bet_history_have_expected_columns()
     {
         /* Test if no columns are missing in the database */
         /* Test users table */
         $this->assertTrue(
-            Schema::hasColumns('users', [
-                'id','name', 'email', 'email_verified_at', 'password'
+            Schema::hasColumns('games', [
+                'id','status', 'match_start', 'match_end', 'map'
             ]), 1);
 
         /* Test bet_histories table */
@@ -30,12 +30,13 @@ class BetHistoryBelongsToUserTest extends TestCase
             ]), 1);
     }
 
-    public function test_the_bethistory_model_belongsto_a_user()
+    public function test_the_bethistory_belongsto_a_game()
     {
-        $user = User::factory()->create();
         $game = Game::factory()->create();
-        $bethistory = BetHistory::factory()->create(['user_id' => $user->id]);
-        $this->assertEquals(1, $bethistory->user->count());
+        $user = User::factory()->create();
+        $bethistory = BetHistory::factory()->create();
+
+        $this->assertEquals(1, $bethistory->game->count());
 
     }
 }

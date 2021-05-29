@@ -25,7 +25,7 @@ class UserSeeder extends Seeder
                 'in_bet_tokens' => 25,
             ]);
 
-        UserFactory::times(10)->create();
+        UserFactory::times(100)->create();
 
     }
 }

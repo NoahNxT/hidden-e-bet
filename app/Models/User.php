@@ -83,4 +83,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(BetHistory::class);
     }
+
+    public function transaction_histories(): HasMany
+    {
+        return $this->hasMany(TransactionHistory::class);
+    }
 }

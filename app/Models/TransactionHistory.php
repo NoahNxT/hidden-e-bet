@@ -62,4 +62,9 @@ class TransactionHistory extends Model
         'invoice_url',
         'status',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

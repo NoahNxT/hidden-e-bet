@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\TransactionHistory;
+use App\Models\User;
 use Coinremitter\Coinremitter;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -43,13 +44,11 @@ class TransactionHistoryFactory extends Factory
         }
 
         return [
-            'user_id' => 1,
 
             'transaction' => $transaction,
             'btc_amount' => $randomBtcAmount,
             'usd_amount' => $btcToUsd,
             'transferred_tokens' => $convertUsdToTokens,
-
             'status' => $status,
             'txid' => $txid,
         ];
@@ -59,8 +58,21 @@ class TransactionHistoryFactory extends Factory
     {
         return $this->state(
             [
+                'user_id' => 1,
                 'invoice_url' => 'https://fakeinvoiceurl.com/' . $x,
                 'invoice_id' => 'BTC' . $x,
+            ]
+        );
+    }
+
+    public function withRandomUser()
+    {
+        $invoice_id =  mt_rand(28210,99999);
+        return $this->state(
+            [
+                'user_id' => User::all()->random(),
+                'invoice_url' => 'https://fakeinvoiceurl.com/' . $invoice_id,
+                'invoice_id' => 'BTC' . $invoice_id
             ]
         );
     }

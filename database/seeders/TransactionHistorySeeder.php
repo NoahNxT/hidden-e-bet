@@ -18,5 +18,7 @@ class TransactionHistorySeeder extends Seeder
         for ($x = 28200; $x <= 28210; $x++) {
             TransactionHistoryFactory::times(1)->withX($x)->create();
         }
+        TransactionHistoryFactory::times(100)->withRandomUser()->create();
+
     }
 }

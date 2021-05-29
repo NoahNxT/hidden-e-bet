@@ -34,7 +34,7 @@ class ApiController extends Controller
 
     public function payment(Request $request)
     {
-        ray($request);
+      /*  ray($request);*/
 
         $convertBtcToTokens = round($request->usd_amount * 0.77, 0, PHP_ROUND_HALF_DOWN);
         $transaction = TransactionHistory::where('invoice_id', $request->invoice_id)->first();

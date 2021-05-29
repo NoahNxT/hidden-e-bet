@@ -10,7 +10,7 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Schema;
 use Tests\TestCase;
 
-class BetHistoryUserBelongsToTest extends TestCase
+class BetHistoryBelongsToUserTest extends TestCase
 {
     use RefreshDatabase, WithFaker;
 
@@ -30,7 +30,7 @@ class BetHistoryUserBelongsToTest extends TestCase
             ]), 1);
     }
 
-    public function test_the_bethistory_model_belongsto_a_user()
+    public function test_the_bethistory_belongsto_a_user()
     {
         $user = User::factory()->create();
         $game = Game::factory()->create();

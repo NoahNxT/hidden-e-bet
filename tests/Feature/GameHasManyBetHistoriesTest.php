@@ -3,13 +3,14 @@
 namespace Tests\Feature;
 
 use App\Models\BetHistory;
+use App\Models\Game;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Schema;
 use Tests\TestCase;
 
-class UserHasManyBetHistoriesTest extends TestCase
+class GameHasManyBetHistoriesTest extends TestCase
 {
     use RefreshDatabase, WithFaker;
 
@@ -18,8 +19,8 @@ class UserHasManyBetHistoriesTest extends TestCase
         /* Test if no columns are missing in the database */
         /* Test users table */
         $this->assertTrue(
-            Schema::hasColumns('users', [
-                'id','name', 'email', 'email_verified_at', 'password'
+            Schema::hasColumns('games', [
+                'id','status', 'match_start', 'match_end', 'map'
             ]), 1);
 
         /* Test bet_histories table */
@@ -29,10 +30,10 @@ class UserHasManyBetHistoriesTest extends TestCase
             ]), 1);
     }
 
-    public function test_the_user_model_can_reach_bethistory_trough_a_relation()
+    public function test_the_bethistories_are_linked_to_games_trough_a_relation()
     {
-        $user    = User::factory()->create();
+        $game    = Game::factory()->create();
 
-        $this->assertInstanceOf('Illuminate\Database\Eloquent\Collection', $user->bet_histories);
+        $this->assertInstanceOf('Illuminate\Database\Eloquent\Collection', $game->bet_histories);
     }
 }

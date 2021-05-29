@@ -17,7 +17,7 @@ class CreateBetHistoriesTable extends Migration
             'bet_histories',
             function (Blueprint $table) {
                 $table->id();
-                $table->integer('match_id');
+                $table->unsignedBigInteger('game_id');
                 $table->unsignedBigInteger('user_id');
                 $table->integer('bet_amount');
                 $table->string('bet_team');
@@ -29,6 +29,10 @@ class CreateBetHistoriesTable extends Migration
                 $table->foreign('user_id')
                     ->references('id')
                     ->on('users');
+
+                $table->foreign('game_id')
+                    ->references('id')
+                    ->on('games');
             }
         );
     }

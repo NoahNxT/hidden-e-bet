@@ -9,7 +9,7 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Schema;
 use Tests\TestCase;
 
-class UserBetHistoryRelationTest extends TestCase
+class UserHasManyBetHistoriesTest extends TestCase
 {
     use RefreshDatabase, WithFaker;
 
@@ -29,7 +29,7 @@ class UserBetHistoryRelationTest extends TestCase
             ]), 1);
     }
 
-    public function test_the_user_model_can_reach_bethistory_trough_a_relation()
+    public function test_the_user_can_reach_bethistory_trough_a_relation()
     {
         $user    = User::factory()->create();
 

@@ -14,12 +14,14 @@ class CreateGamesTable extends Migration
     public function up()
     {
         Schema::create('games', function (Blueprint $table) {
-            $table->bigInteger('id');
+            $table->unsignedBigInteger('id');
             $table->enum('status', ['upcoming','live', 'ended']);
             $table->datetime('match_start');
             $table->datetime('match_end')->nullable();
             $table->string('map');
             $table->timestamps();
+
+            $table->index('id');
         });
     }
 

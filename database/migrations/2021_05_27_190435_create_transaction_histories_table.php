@@ -15,7 +15,7 @@ class CreateTransactionHistoriesTable extends Migration
     {
         Schema::create('transaction_histories', function (Blueprint $table) {
             $table->id();
-            $table->integer('user_id');
+            $table->unsignedBigInteger('user_id');
             $table->text('invoice_id');
             $table->enum('transaction', ['deposit', 'withdraw']);
             $table->float('btc_amount', 15,8);
@@ -25,6 +25,10 @@ class CreateTransactionHistoriesTable extends Migration
             $table->text('invoice_url');
             $table->enum('status', ['Pending','Paid', 'Under paid','Over paid', 'Expired', 'Cancelled']);
             $table->timestamps();
+
+            $table->foreign('user_id')
+                ->references('id')
+                ->on('users');
         });
     }
 

@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\BetHistory;
+use App\Models\Game;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -32,8 +33,7 @@ class BetHistoryFactory extends Factory
         };
 
         return [
-            'match_id' => rand(1, 999999),
-            'user_id' => User::all()->random(),
+            'game_id' => Game::all()->random(),
             'bet_amount' => $betAmount,
             'bet_team' => $this->faker->randomElement(
                 ['ViCi', 'Astralis', 'Fnatic', 'VirtusPro', 'Mousesports', 'NaVi']
@@ -42,5 +42,19 @@ class BetHistoryFactory extends Factory
             'win_or_lose' => $winLose,
             'profit' => $profit,
         ];
+    }
+
+    public function withUserNoah()
+    {
+        return $this->state([
+            'user_id' => 1
+        ]);
+    }
+
+    public function withRandomUser()
+    {
+        return $this->state([
+            'user_id' => User::all()->random(),
+        ]);
     }
 }
