@@ -14,13 +14,16 @@
     <link rel="stylesheet" href="{{ mix('css/app.css')}}">
     <script src="{{ asset('js/app.js') }}"></script>
     @livewireStyles
-    <title>Hidden E-Bet</title>
+    <title>Trypto Bet</title>
 </head>
 
 <body>
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="{{ route('Dashboard') }}">Hidden E-Bet</a>
+    <a class="navbar-brand" href="{{ route('Dashboard') }}">
+        <img src="{{ asset('img/icon.png') }}" width="30" height="30" class="d-inline-block align-top" alt="">
+        Trypto bet
+    </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false"
             aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
