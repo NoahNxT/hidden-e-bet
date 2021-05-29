@@ -13,17 +13,24 @@ class CreateBetHistoriesTable extends Migration
      */
     public function up()
     {
-        Schema::create('bet_histories', function (Blueprint $table) {
-            $table->id();
-            $table->integer('match_id');
-            $table->integer('user_id');
-            $table->integer('bet_amount');
-            $table->string('bet_team');
-            $table->float('bet_factor');
-            $table->enum('win_or_lose', ['win', 'lose']);
-            $table->float('profit');
-            $table->timestamps();
-        });
+        Schema::create(
+            'bet_histories',
+            function (Blueprint $table) {
+                $table->id();
+                $table->integer('match_id');
+                $table->unsignedBigInteger('user_id');
+                $table->integer('bet_amount');
+                $table->string('bet_team');
+                $table->float('bet_factor');
+                $table->enum('win_or_lose', ['win', 'lose']);
+                $table->bigInteger('profit');
+                $table->timestamps();
+
+                $table->foreign('user_id')
+                    ->references('id')
+                    ->on('users');
+            }
+        );
     }
 
     /**

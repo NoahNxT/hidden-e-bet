@@ -20,6 +20,7 @@ class CreateGamesTable extends Migration
             $table->datetime('match_start');
             $table->datetime('match_end')->nullable();
             $table->string('map');
+            $table->timestamps();
         });
     }
 

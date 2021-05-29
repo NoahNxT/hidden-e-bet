@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\User;
+use Database\Factories\UserFactory;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
@@ -22,7 +23,9 @@ class UserSeeder extends Seeder
                 'password' => Hash::make('testtest'),
                 'tokens' => 100,
                 'in_bet_tokens' => 25,
-            ]
-        );
+            ]);
+
+        UserFactory::times(10)->create();
+
     }
 }
