@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BetHistory;
 use App\Models\TransactionHistory;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
@@ -15,7 +16,8 @@ class WalletController extends BaseController
 
     public function index()
     {
-        $transactionHistory = TransactionHistory::where('user_id', Auth::user()->id)->paginate(5);
-        return view('Wallet', compact('transactionHistory'));
+        $transactionHistory = TransactionHistory::where('user_id', Auth::user()->id)->paginate(5,['*'], 'transactions');
+        $betHistory = BetHistory::where('user_id', Auth::user()->id)->paginate(5, ['*'], 'bets');
+        return view('Wallet', compact('transactionHistory', 'betHistory'));
     }
 }
