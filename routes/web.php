@@ -26,6 +26,9 @@ Route::get('/lol', [LolController::class, 'index'])->name('LOL');
 Route::get('/wallet', [WalletController::class, 'index'])->name('Wallet')->middleware('auth');
 Route::get('/details', [GameDetailsController::class, 'index'])->name('Details');
 Route::get('/profile', [ProfileController::class, 'index'])->name('Profile')->middleware('auth');
+Route::post('/profile/update/username-or-withdraw-address', [ProfileController::class, 'usernameOrWithdrawAddress'])->name('ProfileUpdateUsernameOrWithdrawAddress')->middleware('auth');
+Route::post('/profile/update/password', [ProfileController::class, 'updatePassword'])->name('ProfileUpdatePassword')->middleware('auth');
+
 
 
 Route::post('/redirect/deposit', [PaymentController::class, 'deposit'])->name('Deposit');
