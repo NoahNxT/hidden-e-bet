@@ -18,8 +18,7 @@ class UserSeeder extends Seeder
     {
         User::create(
             [
-                'name' => 'Noah',
-                'email' => 'noah@bet.be',
+                'username' => 'Flooxio',
                 'password' => Hash::make('testtest'),
                 'tokens' => 100,
                 'in_bet_tokens' => 25,
