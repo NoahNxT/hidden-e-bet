@@ -74,7 +74,14 @@
                                         <div class="col-12 col-sm-6 mb-3">
                                             <div class="mb-2"><b>Change Password</b></div>
 
-
+                                            @if(Session::has('successPassword'))
+                                                <div class="alert alert-success">
+                                                    {{ Session::get('successPassword') }}
+                                                    @php
+                                                        Session::forget('successPassword');
+                                                    @endphp
+                                                </div>
+                                            @endif
                                             <form method="POST" action="{{ route('ProfileUpdatePassword') }}">
                                                 @csrf
                                                 <div class="row">
@@ -91,7 +98,7 @@
                                                     <div class="col">
                                                         <div class="form-group">
                                                             <label>New Password</label>
-                                                            <input id="password" type="password" class="form-control" name="new_password" required >
+                                                            <input id="password" type="password" class="form-control" name="new_password" required>
 
                                                         </div>
                                                     </div>
@@ -102,7 +109,8 @@
                                                     <div class="col">
                                                         <div class="form-group">
                                                             <label>Confirm <span class="d-none d-xl-inline">Password</span></label>
-                                                            <input id="password-confirm" type="password" class="form-control" name="new_confirm_password" required>
+                                                            <input id="password-confirm" type="password" class="form-control" name="new_confirm_password"
+                                                                   required>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -139,9 +147,6 @@
                                             </div>
                                         </div>
                                     </div>
-
-
-
                                 </div>
                             </div>
                         </div>
