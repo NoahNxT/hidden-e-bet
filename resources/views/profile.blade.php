@@ -27,110 +27,119 @@
                             </ul>
                             <div class="tab-content pt-3">
                                 <div class="tab-pane active">
-                                        <div class="row">
-                                            <div class="col">
-                                                <form action="{{route('ProfileUpdateUsernameOrWithdrawAddress')}}" method="POST">
-                                                   @csrf
-                                                    <div class="row">
-                                                        <div class="col">
-                                                            <div class="form-group">
-                                                                <label>Username</label>
-                                                                <input class="form-control" type="text" name="username" placeholder="Username"
-                                                                       value="{{ Auth::user()->username }}">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col">
-                                                            <div class="form-group">
-                                                                <label>Withdraw Address Private Wallet</label>
-                                                                @if ( Auth::user()->withdraw_key !== null )
-                                                                <input class="form-control" type="text" name="withdrawKey" value="{{ Auth::user()->withdraw_key }}" placeholder="Fill In For Withdraw Access!">
-                                                                @else
-                                                                    <input class="form-control" type="text" name="withdrawKey" placeholder="Fill In For Withdraw Access!">
-
-                                                                @endif
-                                                                <small id="adressHelp" class="form-text text-muted">!!!ONLY BTC Addresses!!! Your withdraw
-                                                                    address has 34 chars</small>
-
-                                                                @if ($errors->any())
-                                                                    <div class="alert alert-danger mt-3">
-                                                                        <ul>
-                                                                            @foreach ($errors->all() as $error)
-                                                                                <li>{{ $error }}</li>
-                                                                            @endforeach
-                                                                        </ul>
-                                                                    </div>
-                                                                @endif
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col d-flex justify-content-end">
-                                                            <button type="submit" class="btn btn-danger">Save</button>
-
-                                                        </div>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                        </div>
-                                        <br>
-                                        <hr class="mt-3">
-                                        <br>
-                                        <div class="row">
-                                            <div class="col-12 col-sm-6 mb-3">
-                                                <div class="mb-2"><b>Change Password</b></div>
+                                    <div class="row">
+                                        <div class="col">
+                                            <form action="{{route('ProfileUpdateUsernameOrWithdrawAddress')}}" method="POST">
+                                                @csrf
                                                 <div class="row">
                                                     <div class="col">
                                                         <div class="form-group">
-                                                            <label>Current Code</label>
-                                                            <input class="form-control" type="password" placeholder="">
+                                                            <label>Username</label>
+                                                            <input class="form-control" type="text" name="username" placeholder="Username"
+                                                                   value="{{ Auth::user()->username }}">
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col">
                                                         <div class="form-group">
-                                                            <label>New Code</label>
-                                                            <input class="form-control" type="text" value="aasds" readonly>
+                                                            <label>Withdraw Address Private Wallet</label>
+                                                            @if ( Auth::user()->withdraw_key !== null )
+                                                                <input class="form-control" type="text" name="withdrawKey"
+                                                                       value="{{ Auth::user()->withdraw_key }}" placeholder="Fill In For Withdraw Access!">
+                                                            @else
+                                                                <input class="form-control" type="text" name="withdrawKey"
+                                                                       placeholder="Fill In For Withdraw Access!">
+
+                                                            @endif
+                                                            <small id="adressHelp" class="form-text text-muted">!!!ONLY BTC Addresses!!! Your withdraw
+                                                                address has 34 chars</small>
+
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="row">
                                                     <div class="col d-flex justify-content-end">
-                                                        <button class="btn btn-danger" type="submit">Generate New Password</button>
+                                                        <button type="submit" class="btn btn-danger">Save</button>
+
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <hr class="mt-3">
+                                    <br>
+                                    <div class="row">
+                                        <div class="col-12 col-sm-6 mb-3">
+                                            <div class="mb-2"><b>Change Password</b></div>
+
+
+                                            <form method="POST" action="{{ route('ProfileUpdatePassword') }}">
+                                                @csrf
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <div class="form-group">
+                                                            <label>Current Password</label>
+                                                            <input class="form-control" type="password" name="current_password" placeholder="">
+                                                        </div>
                                                     </div>
                                                 </div>
 
-                                            </div>
-                                            <div class="col-12 col-sm-5 offset-sm-1 mb-3">
-                                                <div class="mb-2"><b>Keeping in Touch</b></div>
+
                                                 <div class="row">
                                                     <div class="col">
-                                                        <label>Email Notifications</label>
-                                                        <div class="custom-controls-stacked px-2">
-                                                            <div class="custom-control custom-checkbox">
-                                                                <input type="checkbox" class="custom-control-input" id="notifications-blog" checked="">
-                                                                <label class="custom-control-label" for="notifications-blog">Blog posts</label>
-                                                            </div>
-                                                            <div class="custom-control custom-checkbox">
-                                                                <input type="checkbox" class="custom-control-input" id="notifications-news" checked="">
-                                                                <label class="custom-control-label" for="notifications-news">Newsletter</label>
-                                                            </div>
-                                                            <div class="custom-control custom-checkbox">
-                                                                <input type="checkbox" class="custom-control-input" id="notifications-offers" checked="">
-                                                                <label class="custom-control-label" for="notifications-offers">Personal Offers</label>
-                                                            </div>
+                                                        <div class="form-group">
+                                                            <label>New Password</label>
+                                                            <input id="password" type="password" class="form-control" name="new_password" required >
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <div class="form-group">
+                                                            <label>Confirm <span class="d-none d-xl-inline">Password</span></label>
+                                                            <input id="password-confirm" type="password" class="form-control" name="new_confirm_password" required>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <div class="form-group">
+                                                            <button class="btn btn-primary" type="submit">Change Password</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class="col-12 col-sm-5 offset-sm-1 mb-3">
+                                            <div class="mb-2"><b>Keeping in Touch</b></div>
+                                            <div class="row">
+                                                <div class="col">
+                                                    <label>Email Notifications</label>
+                                                    <div class="custom-controls-stacked px-2">
+                                                        <div class="custom-control custom-checkbox">
+                                                            <input type="checkbox" class="custom-control-input" id="notifications-blog" checked="">
+                                                            <label class="custom-control-label" for="notifications-blog">Blog posts</label>
+                                                        </div>
+                                                        <div class="custom-control custom-checkbox">
+                                                            <input type="checkbox" class="custom-control-input" id="notifications-news" checked="">
+                                                            <label class="custom-control-label" for="notifications-news">Newsletter</label>
+                                                        </div>
+                                                        <div class="custom-control custom-checkbox">
+                                                            <input type="checkbox" class="custom-control-input" id="notifications-offers" checked="">
+                                                            <label class="custom-control-label" for="notifications-offers">Personal Offers</label>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        {{--<div class="row">
-                                            <div class="col d-flex justify-content-end">
-                                                <button class="btn btn-primary" type="submit">Save Changes</button>
-                                            </div>
-                                        </div>--}}
+                                    </div>
+
 
 
                                 </div>

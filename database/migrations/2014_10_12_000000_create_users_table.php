@@ -19,7 +19,7 @@ class CreateUsersTable extends Migration
             $table->integer('tokens')->default(0);
             $table->integer('in_bet_tokens')->default(0);
             $table->string('withdraw_key')->nullable();
-            $table->string('password');
+            $table->text('password');
             $table->rememberToken();
             $table->timestamps();
         });

@@ -19,7 +19,7 @@ class UserSeeder extends Seeder
         User::create(
             [
                 'username' => 'Flooxio',
-                'password' => Hash::make('testtest'),
+                'password' => '$2y$10$WBdMb5jSMGV/zpgF4R0eAeoPDDtQuAggvhapRzWF1vMMEpWdC9n5K', //testtest
                 'tokens' => 100,
                 'in_bet_tokens' => 25,
             ]);
