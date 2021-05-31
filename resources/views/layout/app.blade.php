@@ -55,10 +55,10 @@
         @guest
             <span class="navbar-text">
                 @if (Route::has('login'))
-                    <button type="button" class="btn btn-info"><a href='{{route('login')}}' alt='Signup'>Login</a></button>
+                    <button type="button" class="btn btn-info" style="background-color: #7477cd; border-color: #7477cd;"><a href='{{route('login')}}' alt='Signup'>Login</a></button>
                 @endif
                 @if (Route::has('register'))
-                    <button type="button" class="btn btn-info"><a href='{{route('register')}}' alt='Signup'>Signup</a></button>
+                    <button type="button" class="btn btn-info" style="background-color: #7477cd; border-color: #7477cd;"><a href='{{route('register')}}' alt='Signup'>Signup</a></button>
                 @endif
             </span>
         @else
@@ -135,7 +135,7 @@
 
                                         </div>
                                         <div class="col-xl-4">
-                                            <button type="submit" class="btn btn-info w-100 mt-1"><a alt='Deposit'>Deposit</a></button>
+                                            <button type="submit" class="btn btn-info w-100 mt-1" style="background-color: #7477cd; border-color: #7477cd;"><a alt='Deposit'>Deposit</a></button>
                                         </div>
                                     </div>
                                     <small id="depositWithdrawHelp" class="form-text text-muted mx-1">There will be a fee on your transaction.
@@ -159,7 +159,7 @@
                                         </div>
 
                                         <div class="col-xl-4">
-                                            <button type="submit" class="btn btn-info w-100 mt-1">Withdraw</button>
+                                            <button type="submit" class="btn btn-info w-100 mt-1" style="background-color: #7477cd; border-color: #7477cd;">Withdraw</button>
                                         </div>
                                     </div>
                                     <small id="depositWithdrawHelp" class="form-text text-muted mx-1">There will be a fee on your transaction.

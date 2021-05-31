@@ -17,7 +17,7 @@ class ApiController extends Controller
         $data = json_decode($request->input()[0]);
 
         PreLoadGameData::updateOrCreate(
-            ['match_id' => $data->Match_id],
+            ['id' => $data->Match_id],
             ['data' => $request->input()[0]]
         );
 

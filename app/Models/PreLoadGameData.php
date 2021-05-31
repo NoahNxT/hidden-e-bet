@@ -10,7 +10,7 @@ class PreLoadGameData extends Model
     use HasFactory;
 
     protected $fillable = [
-      'match_id',
+      'id',
       'data'
     ];
 }

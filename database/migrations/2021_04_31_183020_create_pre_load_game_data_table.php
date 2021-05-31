@@ -14,9 +14,11 @@ class CreatePreLoadGameDataTable extends Migration
     public function up()
     {
         Schema::create('pre_load_game_data', function (Blueprint $table) {
-            $table->string('match_id');
+            $table->unsignedBigInteger('id');
             $table->json('data');
             $table->timestamps();
+            $table->index('id');
+
         });
     }
 
