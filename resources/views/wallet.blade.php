@@ -10,119 +10,83 @@
                 <tr>
                     <th scope="col"></th>
                     <th scope="col">Amount</th>
+                    <th scope="col">Status</th>
                     <th scope="col">Tokens</th>
                     <th scope="col">TXID</th>
                     <th scope="col">Date</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <th scope="row"><i class="fas fa-money-bill-alt text-danger"></i></th>
-                    <td class="text-danger">- $ 32 (0.00342 BTC)</td>
-                    <td>32 tokens</td>
-                    <td>f4184fc596403b9d638783c...</td>
-                    <td>23/11/2020 11:33 AM</td>
-                </tr>
-                <tr>
-                    <th scope="row"><i class="fas fa-money-bill-alt text-success"></i></th>
-                    <td class="text-success">+ $ 15 (0.00342 BTC)</td>
-                    <td>15 tokens</td>
-                    <td>f4184fc596403b9d638783c...</td>
-                    <td>23/11/2020 11:33 AM</td>
-                </tr>
-                <tr>
-                    <th scope="row"><i class="fas fa-money-bill-alt text-success"></i></th>
-                    <td class="text-success">+ $ 15 (0.00342 BTC)</td>
-                    <td>15 tokens</td>
-                    <td>f4184fc596403b9d638783c...</td>
-                    <td>23/11/2020 11:33 AM</td>
-                </tr>
-                <tr>
-                    <th scope="row"><i class="fas fa-money-bill-alt text-danger"></i></th>
-                    <td class="text-danger">- $ 55 (0.00342 BTC)</td>
-                    <td>55 tokens</td>
-                    <td>f4184fc596403b9d638783c...</td>
-                    <td>23/11/2020 11:33 AM</td>
-                </tr>
-                <tr>
-                    <th scope="row"><i class="fas fa-money-bill-alt text-success"></i></th>
-                    <td class="text-success">+ $ 15 (0.00342 BTC)</td>
-                    <td>15 tokens</td>
-                    <td>f4184fc596403b9d638783c...</td>
-                    <td>23/11/2020 11:33 AM</td>
-                </tr>
-                <tr>
-                    <th scope="row"><i class="fas fa-money-bill-alt text-danger"></i></th>
-                    <td class="text-danger">- $ 143 (0.00342 BTC)</td>
-                    <td>143 tokens</td>
-                    <td>f4184fc596403b9d638783c...</td>
-                    <td>23/11/2020 11:33 AM</td>
-                </tr>
+                @foreach($transactionHistory as $transaction)
+                    <tr>
+                        @if($transaction->transaction === 'deposit')
+                            <th scope="row">
+                                <i class="fas fa-money-bill-alt text-success"></i>
+                            </th>
+                            <td><a class="link-success" href="{{ $transaction->invoice_url }}">+ ${{ $transaction->usd_amount }} ({{ $transaction->btc_amount }}
+                                    BTC)</a></td>
+                        @else
+                            <th scope="row">
+                                <i class="fas fa-money-bill-alt text-danger"></i>
+                            </th>
+                            <td class="text-danger"><a class="link-success" href="{{ $transaction->invoice_url }}">- ${{ $transaction->usd_amount }}
+                                    ({{ $transaction->btc_amount }} BTC)</a></td>
+                        @endif
+                        <td><strong></bold>{{ $transaction-> status}}</strong></td>
+                        <td>{{ $transaction->transferred_tokens }} tokens</td>
+                        <td>{{ $transaction->txid }}</td>
+                        <td>{{ $transaction->created_at->diffForHumans() }}</td>
+                    </tr>
+                @endforeach
                 </tbody>
             </table>
+            <div class="d-flex justify-content-end">
+                {{ $transactionHistory->appends(['bets' => $betHistory->currentPage()])->links() }}
+            </div>
 
             <h6><img src="{{ asset('img/history_icon.png') }}" height="20px"><b> Bet History</b></h6>
             <table class="table table-striped">
                 <thead>
                 <tr>
                     <th scope="col">W/L</th>
-                    <th scope="col">Amount</th>
+                    <th scope="col">Bet</th>
+                    <th scope="col">Profit</th>
                     <th scope="col">Win factor</th>
-                    <th scope="col">Game</th>
                     <th scope="col">Match</th>
                     <th scope="col">Map</th>
                     <th scope="col">Date</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <th scope="row"><i class="fas fa-plus-circle text-success"></i></th>
-                    <td> + 144 tokens</td>
-                    <td>x1.05</td>
-                    <td><img src="{{ asset('img/csgo_icon.png') }}" height="18px"></td>
-                    <td>G2 vs Liquid</td>
-                    <td>de_dust2</td>
-                    <td>23/11/2020 11:33 AM</td>
-                </tr>
-                <tr>
-                    <th scope="row"><i class="fas fa-minus-circle text-danger"></i></th>
-                    <td> - 88 tokens</td>
-                    <td>x1.88</td>
-                    <td><img src="{{ asset('img/csgo_icon.png') }}" height="18px"></td>
-                    <td>ViCi vs Astralis</td>
-                    <td>de_overpass</td>
-                    <td>23/11/2020 11:33 AM</td>
-                </tr>
-                <tr>
-                    <th scope="row"><i class="fas fa-minus-circle text-danger"></i></th>
-                    <td> - 364 tokens</td>
-                    <td>x1.99</td>
-                    <td><img src="{{ asset('img/lol_icon.png') }}" height="18px"></td>
-                    <td>Virtus Pro vs iBuyPower</td>
-                    <td>de_cobblestone</td>
-                    <td>23/11/2020 11:33 AM</td>
-                </tr>
-                <tr>
-                    <th scope="row"><i class="fas fa-plus-circle text-success"></i></th>
-                    <td> + 97 tokens</td>
-                    <td>x1.67</td>
-                    <td><img src="{{ asset('img/csgo_icon.png') }}" height="18px"></td>
-                    <td>G2 vs Liquid</td>
-                    <td>de_dust2</td>
-                    <td>23/11/2020 11:33 AM</td>
-                </tr>
-                <tr>
-                    <th scope="row"><i class="fas fa-plus-circle text-success"></i></th>
-                    <td> + 50 tokens</td>
-                    <td>x1.05</td>
-                    <td><img src="{{ asset('img/lol_icon.png') }}" height="18px"></td>
-                    <td>G2 vs Liquid</td>
-                    <td>de_dust2</td>
-                    <td>23/11/2020 11:33 AM</td>
-                </tr>
+
+                @foreach($betHistory as $bet)
+                    <tr>
+                        @if($bet->win_or_lose === 'win')
+                            <th scope="row">
+                                <i class="fas fa-plus-circle text-success"></i>
+                            </th>
+                            <td>{{ $bet->bet_amount }} tokens</td>
+                            <td class="text-success">+ ${{ $bet->profit }} tokens</td>
+                        @else
+                            <th scope="row">
+                                <i class="fas fa-minus-circle text-danger"></i>
+                            </th>
+                            <td>{{ $bet->bet_amount }} tokens</td>
+                            <td class="text-danger"> 0 tokens</td>
+                        @endif
+                            <td>x{{ $bet->bet_factor }}</td>
+                            <td>ViCi vs Astralis</td>
+                            <td>de_overpass</td>
+                            <td>{{ $transaction->created_at->diffForHumans() }}</td>
+                    </tr>
+                @endforeach
+
+
                 </tbody>
             </table>
-
+            <div class="d-flex justify-content-end">
+                {{ $betHistory->appends(['transactions' => $transactionHistory->currentPage()])->links() }}
+            </div>
         </div>
     </div>
 @endsection
