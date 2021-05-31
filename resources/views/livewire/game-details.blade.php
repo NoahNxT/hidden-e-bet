@@ -1,7 +1,7 @@
 <div>
     <div class="card text-center">
         <div class="card-body" style="background-color: #EFEFEF;">
-            <div class="row ml-1" >
+            <div class="row ml-1">
                 @if(!isset($dataCsgo['Status'] ))
                     <h5 class="text-danger mr-1"><b>ERROR </b></h5>
                 @elseif($dataCsgo['Status'] === "Upcoming")
@@ -66,12 +66,12 @@
             <div class="row ml-1">
                 <small><b>Match Information</b></small>
             </div>
-            <div class="row d-flex justify-content-center text-center mt-3">
+            <div class="row text-center mt-3">
                 <h5 class="mr-auto ml-3">
                     <img src="{{ $dataCsgo['Team1'][0]['Logo'] ?? ''}}" height="40px">
                     {{ $dataCsgo['Team1'][0]['Name'] ?? ''}}
                 </h5>
-                <h3 class="mx-auto">
+                <h3 class="mr-5">
                     {{ $dataCsgo['Team1'][0]['Score'] ?? ''}} : {{ $dataCsgo['Team2'][0]['Score'] ?? ''}}
                 </h3>
                 <h5 class="ml-auto mr-3">
@@ -85,8 +85,10 @@
             </div>
             <div class="row d-flex justify-content-center text-center mt-3">
                 <div class="progress w-100">
-                    <div class="progress-bar bg-warning" role="progressbar" style="width: {{$team1Percentage}}%" aria-valuenow="50" aria-valuemin="50" aria-valuemax="50"></div>
-                    <div class="progress-bar bg-danger" role="progressbar" style="width: {{$team2Percentage}}%" aria-valuenow="50" aria-valuemin="50" aria-valuemax="50"></div>
+                    <div class="progress-bar bg-warning" role="progressbar" style="width: {{$team1Percentage}}%" aria-valuenow="50" aria-valuemin="50"
+                         aria-valuemax="50"></div>
+                    <div class="progress-bar bg-danger" role="progressbar" style="width: {{$team2Percentage}}%" aria-valuenow="50" aria-valuemin="50"
+                         aria-valuemax="50"></div>
                 </div>
             </div>
             <div class="row mt-5">
@@ -152,12 +154,11 @@
     window.addEventListener('DOMContentLoaded', function () {
         Echo.channel('csgo')
             .listen('.match-data-csgo', (e) => {
-                console.log(e);
                 window.livewire.emit('newCsgoData', e)
-
+                window.livewire.on('UpdateMatchDataCsgo', () => {
+                    // Code Here
+                })
             });
-
-
     })
 
 </script>

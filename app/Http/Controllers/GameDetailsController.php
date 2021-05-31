@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\UpdateMatchDataCsgo;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -13,6 +14,7 @@ class GameDetailsController extends BaseController
 
     public function index() {
 
+        broadcast(new UpdateMatchDataCsgo(['page_visited' => True]));
         return view('game_details');
     }
 }

@@ -26,7 +26,7 @@ class GameDetails extends Component
         $this->playerDeaths = [];
         $this->playerMVPs = [];
         $this->dataCsgo = $data;
-        $this->team2Score =$this->dataCsgo['Team2'][0]['Score'];
+        $this->team2Score = $this->dataCsgo['Team2'][0]['Score'];
         //ray( $this->dataCsgo)->die();
 
         //ray('refreshed');
@@ -38,11 +38,11 @@ class GameDetails extends Component
             $this->playerMVPs[] = $this->dataCsgo['Team2'][0]['Team'][0]['Player' . $x][0]['MVP'];
         }
         $this->team2 = [
-                        ['Names' => $this->playerNames],
-                        ['Kills' => $this->playerKills],
-                        ['Assists' => $this->playerAssists],
-                        ['Deaths' => $this->playerDeaths],
-                        ['MVP' => $this->playerMVPs],
+            ['Names' => $this->playerNames],
+            ['Kills' => $this->playerKills],
+            ['Assists' => $this->playerAssists],
+            ['Deaths' => $this->playerDeaths],
+            ['MVP' => $this->playerMVPs],
 
         ];
 
@@ -51,7 +51,7 @@ class GameDetails extends Component
         $this->playerAssists = [];
         $this->playerDeaths = [];
         $this->playerMVPs = [];
-        $this->team1Score =$this->dataCsgo['Team1'][0]['Score'];
+        $this->team1Score = $this->dataCsgo['Team1'][0]['Score'];
         //ray( $this->dataCsgo)->die();
 
         $this->emit('refreshComponent');
@@ -71,8 +71,17 @@ class GameDetails extends Component
             ['MVP' => $this->playerMVPs],
         ];
 
-        $this->team1Percentage = ($this->team1Score /  ($this->team2Score + $this->team1Score)) * 100;
-        $this->team2Percentage = ($this->team2Score /  ($this->team2Score + $this->team1Score)) * 100;
+        if ($this->team1Score !== 0) {
+            $this->team1Percentage = ($this->team1Score / ($this->team2Score + $this->team1Score)) * 100;
+        } else {
+            $this->team1Percentage = 0;
+        }
+        if ($this->team2Score !== 0) {
+            $this->team2Percentage = ($this->team2Score / ($this->team2Score + $this->team1Score)) * 100;
+        } else {
+            $this->team2Percentage = 0;
+        }
+
 
         $this->emit('refreshComponent');
     }

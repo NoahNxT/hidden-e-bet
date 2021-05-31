@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ApiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -17,3 +18,19 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+/*Route::post('v1/match', [ApiController::class, 'matchData']);*/
+
+Route::group(
+    [
+        'prefix' => 'v1',
+        'as' => 'api.',
+    ],
+    function () {
+        Route::post('match', [ApiController::class, 'matchData']);
+        Route::post('payment', [ApiController::class, 'payment'])->name('payment');
+        Route::post('payment/confirm', [ApiController::class, 'paymentConfirm']);
+        Route::post('payment/fail', [ApiController::class, 'paymentFail']);
+
+    }
+);
