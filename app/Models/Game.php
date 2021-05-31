@@ -10,13 +10,15 @@ class Game extends Model
 {
     use HasFactory;
 
-    public $fillable = [
+    protected $fillable = [
         'id',
         'status',
         'match_start',
         'match_end',
         'map',
     ];
+
+    public $timestamps = false;
 
     public function bet_histories(): HasMany
     {

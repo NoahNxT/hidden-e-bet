@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\PreLoadGameData;
 use App\Models\TransactionHistory;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -13,9 +14,14 @@ class ApiController extends Controller
 {
     public function matchData(Request $request)
     {
-        ray($request);
+        $data = json_decode($request->input()[0]);
 
-        return null;
+        PreLoadGameData::updateOrCreate(
+            ['match_id' => $data->Match_id],
+            ['data' => $request->input()[0]]
+        );
+
+        return response(null, Response::HTTP_OK, ['Content-Type' => 'text/plain']);
     }
 
     public function paymentConfirm(Request $request)

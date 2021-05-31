@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePreLoadMatchDataTable extends Migration
+class CreatePreLoadGameDataTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,10 @@ class CreatePreLoadMatchDataTable extends Migration
      */
     public function up()
     {
-        Schema::create('pre_load_match_data', function (Blueprint $table) {
+        Schema::create('pre_load_game_data', function (Blueprint $table) {
             $table->string('match_id');
             $table->json('data');
+            $table->timestamps();
         });
     }
 
@@ -26,6 +27,6 @@ class CreatePreLoadMatchDataTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pre_load_match_data');
+        Schema::dropIfExists('pre_load_game_data');
     }
 }
