@@ -30,7 +30,7 @@ class PaymentController extends Controller
         $param = [
             'amount' => number_format($convertUsdToBtc, 8),
             //required.
-            'notify_url' => 'https://a7557ddd9237.ngrok.io/api/v1/payment',
+            'notify_url' => env('NGROK_LINK') . '/api/v1/payment',
             //optional,url on which you wants to receive notification,
             'fail_url' => env('APP_URL'),
             //optional,url on which user will be redirect if user cancel invoice,
@@ -58,7 +58,7 @@ class PaymentController extends Controller
         //ray($invoice);
 
         if ($invoice['data']['status'] === 'Pending') {
-           $transactionRecord =  TransactionHistory::create(
+            $transactionRecord = TransactionHistory::create(
                 [
                     'user_id' => Auth::user()->id,
                     'invoice_id' => $invoice['data']['invoice_id'],
@@ -71,8 +71,60 @@ class PaymentController extends Controller
 
                 ]
             );
+        }
+    }
 
-           //ray($transactionRecord);
+    public function withdraw(DepositWithdrawRequest $request)
+    {
+        $btc_wallet = new Coinremitter('BTC');
+        $rate = $btc_wallet->get_coin_rate();
+        $amountUsd = $request->amount;
+        (float)$convertUsdToBtc = round(
+            ((1 / $rate['data']['BTC']['price']) * ($amountUsd)) * 0.77,
+            8,
+            PHP_ROUND_HALF_DOWN
+        );
+
+        $param1 = [
+            'address' => Auth::user()->withdraw_key
+        ];
+
+        $validate = $btc_wallet->validate_address($param1);
+        if ($validate['data']['valid'] === true) {
+
+                $param2 = [
+                    'to_address' => Auth::user()->withdraw_key,
+                    'amount' => $convertUsdToBtc
+                ];
+                $withdraw = $btc_wallet->withdraw($param2);
+                //ray($withdraw)->die();
+            if ($withdraw['msg'] !== ' There is insufficient balance in your wallet.') {
+                $this->pending($withdraw, $amountUsd);
+                return back()->with('transactionStatus', 'Transaction Complete! Your money is on its way!');
+            }
+
+            return back()->with('transactionStatus', 'There is insufficient balance on Trypto Bet, let us refill our balance...');
+        }
+
+        return back()->with('transactionStatus', 'Transaction Failed! No valid Withdraw address was given!');
+    }
+
+    public function withdrawTransaction(array $withdraw, int $amountUsd)
+    {
+        if ($withdraw['data']['type'] === 'receive') {
+            $transactionRecord = TransactionHistory::create(
+                [
+                    'user_id' => Auth::user()->id,
+                    'invoice_id' => $withdraw['data']['id'],
+                    'transaction' => 'withdraw',
+                    'btc_amount' => $withdraw['data']['amount'],
+                    'usd_amount' => $amountUsd,
+                    'transferred_tokens' => $amountUsd,
+                    'invoice_url' => $withdraw['data']['explorer_url'],
+                    'status' => 'Withdraw',
+
+                ]
+            );
         }
     }
 }

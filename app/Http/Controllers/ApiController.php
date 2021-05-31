@@ -36,7 +36,7 @@ class ApiController extends Controller
     {
       /*  ray($request);*/
 
-        $convertBtcToTokens = round($request->usd_amount * 0.77, 0, PHP_ROUND_HALF_DOWN);
+        $convertBtcToTokens = floor($request->usd_amount * 0.77);
         $transaction = TransactionHistory::where('invoice_id', $request->invoice_id)->first();
 
         switch ($request->status) {
@@ -52,6 +52,11 @@ class ApiController extends Controller
                 break;
 
             default:
+        }
+
+        if ($request->action == 'withdraw')
+        {
+
         }
 
         return response(null, Response::HTTP_OK, ['Content-Type' => 'text/plain']);
