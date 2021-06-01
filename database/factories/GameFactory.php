@@ -40,7 +40,6 @@ class GameFactory extends Factory
         }
 
         return [
-            'id' => rand(1, 999999),
             'status' => $status,
             'match_start' => $match_start,
             'match_end' => $match_end,

@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Unit;
 
 use App\Models\BetHistory;
 use App\Models\Game;
@@ -10,11 +10,11 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Schema;
 use Tests\TestCase;
 
-class BetHistoryBelongsToGameTest extends TestCase
+class GameHasManyBetHistoriesTest extends TestCase
 {
     use RefreshDatabase, WithFaker;
 
-    public function table_games_and_bet_history_have_expected_columns()
+    public function table_users_and_bet_history_have_expected_columns()
     {
         /* Test if no columns are missing in the database */
         /* Test users table */
@@ -26,17 +26,14 @@ class BetHistoryBelongsToGameTest extends TestCase
         /* Test bet_histories table */
         $this->assertTrue(
             Schema::hasColumns('bet_histories', [
-                'id','game_id', 'user_id', 'bet_amount', 'bet_team', 'bet_factor', 'win_or_lose', 'profit'
+                'id','match_id', 'user_id', 'bet_amount', 'bet_team', 'bet_factor', 'win_or_lose', 'profit'
             ]), 1);
     }
 
-    public function test_the_bethistory_belongsto_a_game()
+    public function test_the_bethistories_are_linked_to_games_trough_a_relation()
     {
-        $game = Game::factory()->create();
-        $user = User::factory()->create();
-        $bethistory = BetHistory::factory()->create(['user_id' => 1]);
+        $game    = Game::factory()->create();
 
-        $this->assertEquals(1, $bethistory->game->count());
-
+        $this->assertInstanceOf('Illuminate\Database\Eloquent\Collection', $game->bet_histories);
     }
 }

@@ -1,15 +1,16 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Unit;
 
 use App\Models\BetHistory;
+use App\Models\Game;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Schema;
 use Tests\TestCase;
 
-class UserHasManyBetHistoriesTest extends TestCase
+class BetHistoryBelongsToUserTest extends TestCase
 {
     use RefreshDatabase, WithFaker;
 
@@ -25,14 +26,16 @@ class UserHasManyBetHistoriesTest extends TestCase
         /* Test bet_histories table */
         $this->assertTrue(
             Schema::hasColumns('bet_histories', [
-                'id','match_id', 'user_id', 'bet_amount', 'bet_team', 'bet_factor', 'win_or_lose', 'profit'
+                'id','game_id', 'user_id', 'bet_amount', 'bet_team', 'bet_factor', 'win_or_lose', 'profit'
             ]), 1);
     }
 
-    public function test_the_user_can_reach_bethistory_trough_a_relation()
+    public function test_the_bethistory_belongsto_a_user()
     {
-        $user    = User::factory()->create();
+        $user = User::factory()->create();
+        $game = Game::factory()->create();
+        $bethistory = BetHistory::factory()->create(['user_id' => $user->id]);
+        $this->assertEquals(1, $bethistory->user->count());
 
-        $this->assertInstanceOf('Illuminate\Database\Eloquent\Collection', $user->bet_histories);
     }
 }

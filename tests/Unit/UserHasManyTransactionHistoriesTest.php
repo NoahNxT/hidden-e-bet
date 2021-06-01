@@ -1,15 +1,14 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Unit;
 
-use App\Models\TransactionHistory;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Schema;
 use Tests\TestCase;
 
-class TransactionHistoryBelongsToUserTest extends TestCase
+class UserHasManyTransactionHistoriesTest extends TestCase
 {
     use RefreshDatabase, WithFaker;
 
@@ -31,7 +30,7 @@ class TransactionHistoryBelongsToUserTest extends TestCase
             1
         );
 
-        /* Test transaction_histories table */
+        /* Test bet_histories table */
         $this->assertTrue(
             Schema::hasColumns(
                 'transaction_histories',
@@ -51,18 +50,10 @@ class TransactionHistoryBelongsToUserTest extends TestCase
         );
     }
 
-    public function test_the_transactionhistory_belongsto_a_user()
+    public function test_the_user_can_reach_transactionhistory_trough_a_relation()
     {
-        $invoice_id = mt_rand(1, 9999);
-
         $user = User::factory()->create();
-        $transactionHistory = TransactionHistory::factory()->create(
-            [
-                'user_id' => $user->id,
-                'invoice_id' => $invoice_id,
-                'invoice_url' => 'https//fakeinvoice.com/' . $invoice_id
-            ]
-        );
-        $this->assertEquals(1, $transactionHistory->user->count());
+
+        $this->assertInstanceOf('Illuminate\Database\Eloquent\Collection', $user->transaction_histories);
     }
 }

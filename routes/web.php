@@ -22,7 +22,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [DashboardController::class, 'index'])->name('Dashboard');
 Route::get('/csgo', [CsgoController::class, 'index'])->name('CSGO');
-Route::get('/lol', [LolController::class, 'index'])->name('LOL');
 Route::get('/wallet', [WalletController::class, 'index'])->name('Wallet')->middleware('auth');
 Route::get('/details', [GameDetailsController::class, 'index'])->name('Details');
 Route::get('/profile', [ProfileController::class, 'index'])->name('Profile')->middleware('auth');
