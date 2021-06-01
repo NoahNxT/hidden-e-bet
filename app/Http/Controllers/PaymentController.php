@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\DepositWithdrawRequest;
 use App\Models\TransactionHistory;
+use App\Models\User;
 use Coinremitter\Coinremitter;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -99,7 +100,7 @@ class PaymentController extends Controller
                 $withdraw = $btc_wallet->withdraw($param2);
                 //ray($withdraw)->die();
             if ($withdraw['msg'] !== ' There is insufficient balance in your wallet.') {
-                $this->pending($withdraw, $amountUsd);
+                $this->withdrawTransaction($withdraw, $amountUsd);
                 return back()->with('transactionStatus', 'Transaction Complete! Your money is on its way!');
             }
 
@@ -122,9 +123,12 @@ class PaymentController extends Controller
                     'transferred_tokens' => $amountUsd,
                     'invoice_url' => $withdraw['data']['explorer_url'],
                     'status' => 'Withdraw',
-
+                    'txid' => $withdraw['data']['txid']
                 ]
             );
+
+            User::where('id', Auth::user()->id)->decrement('tokens', $amountUsd);
+
         }
     }
 }

@@ -24,25 +24,14 @@ class ApiController extends Controller
         return response(null, Response::HTTP_OK, ['Content-Type' => 'text/plain']);
     }
 
-    public function paymentConfirm(Request $request)
-    {
-        ray($request);
-
-        return '';
-    }
-
-    public function paymentFail(Request $request)
-    {
-        ray($request);
-
-        return '';
-    }
 
     public function payment(Request $request)
     {
       /*  ray($request);*/
 
         $convertBtcToTokens = floor($request->usd_amount * 0.77);
+        $convertBtcToTokensWithdraw = floor($request->usd_amount * 0.77);
+
         $transaction = TransactionHistory::where('invoice_id', $request->invoice_id)->first();
 
         switch ($request->status) {
@@ -58,11 +47,6 @@ class ApiController extends Controller
                 break;
 
             default:
-        }
-
-        if ($request->action == 'withdraw')
-        {
-
         }
 
         return response(null, Response::HTTP_OK, ['Content-Type' => 'text/plain']);
