@@ -14,7 +14,6 @@ class GameDetailsController extends BaseController
 
     public function index() {
 
-        broadcast(new UpdateMatchDataCsgo(['page_visited' => True]));
         return view('game_details');
     }
 }

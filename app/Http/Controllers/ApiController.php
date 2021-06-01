@@ -17,11 +17,7 @@ class ApiController extends Controller
     public function matchData(Request $request)
     {
         $data = json_decode($request->input()[0], true);
-
-        PreLoadGameData::updateOrCreate(
-            ['id' => $data['Match_id']],
-            ['data' => $request->input()[0]]
-        );
+        ray($request->input()[0]);
 
         switch ($data['Status']) {
             case 'Live':
@@ -50,6 +46,15 @@ class ApiController extends Controller
                 break;
         }
 
+        PreLoadGameData::updateOrCreate(
+            [
+                'game_id' => $data['Match_id']
+            ],
+            [
+                'data' => $request->input()[0]
+            ]
+
+        );
         return response(null, Response::HTTP_OK, ['Content-Type' => 'text/plain']);
     }
 

@@ -21,6 +21,7 @@ class CreateGamesTable extends Migration
             $table->string('map');
 
             $table->index('id');
+
         });
     }
 

@@ -24,16 +24,13 @@ class GameFactory extends Factory
     {
         $match_start = null;
         $match_end = null;
-        $status = $this->faker->randomElement(['upcoming', 'live', 'ended']);
+        $status = $this->faker->randomElement(['Upcoming', 'Ended']);
         $randomDay = rand(0, 365);
         switch ($status) {
-            case "upcoming":
+            case "Upcoming":
                 $match_start = Carbon::now()->addDays($randomDay);
                 break;
-            case "live":
-                $match_start = Carbon::now()->subMinutes(10);
-                break;
-            case "ended":
+            case "Ended":
                 $match_start = Carbon::now()->subDays($randomDay);
                 $match_end = Carbon::now()->subDays($randomDay)->addHours(1);
                 break;

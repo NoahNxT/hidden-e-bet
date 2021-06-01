@@ -6,6 +6,8 @@
                     <h5 class="text-danger mr-1"><b>ERROR </b></h5>
                 @elseif($dataCsgo['Status'] === "Upcoming")
                     <h5 class="text-success align-top mr-1"><b>{{ $dataCsgo['Status'] ?? ''}} </b></h5>
+                @elseif($dataCsgo['Status'] === "Warmup")
+                    <i class="fas fa-fire mr-1 mt-1" height="18"></i>
                 @elseif($dataCsgo['Status'] === "Live")
                     <img src="{{ asset('img/livebox.svg') }}" height="18" class="mr-1 mt-1">
                 @elseif($dataCsgo['Status'] === 'Ended')

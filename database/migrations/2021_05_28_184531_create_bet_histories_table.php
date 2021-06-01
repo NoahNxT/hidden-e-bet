@@ -32,7 +32,8 @@ class CreateBetHistoriesTable extends Migration
 
                 $table->foreign('game_id')
                     ->references('id')
-                    ->on('games');
+                    ->on('games')
+                ->cascadeOnDelete();
             }
         );
     }

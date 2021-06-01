@@ -37,7 +37,7 @@ class GameDetails extends Component
     public function mount()
     {
         //ray(json_decode(PreLoadGameData::where('id', 1)->get('data')[0]['data'], true))->die();
-        $this->newCsgoData(json_decode(PreLoadGameData::where('id', 1)->get('data')[0]['data'], true));
+        $this->newCsgoData(json_decode(PreLoadGameData::where('game_id', 1)->get('data')[0]['data'], true));
     }
 
     public function newCsgoData($data)
