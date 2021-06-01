@@ -58,8 +58,26 @@
                     </h5>
                 </div>
             </div>
+            <form wire:submit.prevent="submit" method="POST">
+                <div class="row d-flex justify-content-center align-items-center text-center mt-3">
+
+                    <div class="col-xl-3">
+                        <div class="input-group my-3 ">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">Tokens</span>
+                            </div>
+                            <input type="text" class="form-control" aria-label="Amount" wire:model="amountBet">
+
+                        </div>
+                    </div>
+                    <div class="col-xl-1">
+                        <button type="submit" class="btn btn-primary w-100" style="background-color: #7477cd; border-color: #7477cd;">Bet</button>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
+
 
     <div class="card mt-3">
         <div class="card-body">

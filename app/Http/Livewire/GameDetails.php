@@ -17,7 +17,28 @@ class GameDetails extends Component
     public $team2 = [];
     public $team1Percentage = 50;
     public $team2Percentage = 50;
+    public $amountBet;
     protected $listeners = ['newCsgoData', 'refreshComponent' => '$refresh'];
+
+    public function submit()
+    {
+        $validatedData = $this->validate(
+            [
+                'amountBet' => 'required|min:5|numeric',
+            ]
+        );
+        if ($validatedData !== null) {
+            ray($validatedData);
+            $this->emit('refreshComponent');
+
+        }
+    }
+
+    public function mount()
+    {
+        //ray(json_decode(PreLoadGameData::where('id', 1)->get('data')[0]['data'], true))->die();
+        $this->newCsgoData(json_decode(PreLoadGameData::where('id', 1)->get('data')[0]['data'], true));
+    }
 
     public function newCsgoData($data)
     {
@@ -86,11 +107,6 @@ class GameDetails extends Component
 
 
         $this->emit('refreshComponent');
-    }
-
-    public function mount() {
-        //ray(json_decode(PreLoadGameData::where('id', 1)->get('data')[0]['data'], true))->die();
-        $this->newCsgoData(json_decode(PreLoadGameData::where('id', 1)->get('data')[0]['data'], true));
     }
 
     public function render()
