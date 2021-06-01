@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\PreLoadGameData;
 use App\Models\TransactionHistory;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -13,30 +14,24 @@ class ApiController extends Controller
 {
     public function matchData(Request $request)
     {
-        ray($request);
+        $data = json_decode($request->input()[0]);
 
-        return null;
+        PreLoadGameData::updateOrCreate(
+            ['id' => $data->Match_id],
+            ['data' => $request->input()[0]]
+        );
+
+        return response(null, Response::HTTP_OK, ['Content-Type' => 'text/plain']);
     }
 
-    public function paymentConfirm(Request $request)
-    {
-        ray($request);
-
-        return '';
-    }
-
-    public function paymentFail(Request $request)
-    {
-        ray($request);
-
-        return '';
-    }
 
     public function payment(Request $request)
     {
       /*  ray($request);*/
 
-        $convertBtcToTokens = round($request->usd_amount * 0.77, 0, PHP_ROUND_HALF_DOWN);
+        $convertBtcToTokens = floor($request->usd_amount * 0.77);
+        $convertBtcToTokensWithdraw = floor($request->usd_amount * 0.77);
+
         $transaction = TransactionHistory::where('invoice_id', $request->invoice_id)->first();
 
         switch ($request->status) {

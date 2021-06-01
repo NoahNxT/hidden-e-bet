@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\PreLoadGameData;
 use Livewire\Component;
 
 class GameDetails extends Component
@@ -20,6 +21,7 @@ class GameDetails extends Component
 
     public function newCsgoData($data)
     {
+        //ray('pusher data', $data);
         $this->playerKills = [];
         $this->playerNames = [];
         $this->playerAssists = [];
@@ -84,6 +86,11 @@ class GameDetails extends Component
 
 
         $this->emit('refreshComponent');
+    }
+
+    public function mount() {
+        //ray(json_decode(PreLoadGameData::where('id', 1)->get('data')[0]['data'], true))->die();
+        $this->newCsgoData(json_decode(PreLoadGameData::where('id', 1)->get('data')[0]['data'], true));
     }
 
     public function render()

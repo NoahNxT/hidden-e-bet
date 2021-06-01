@@ -40,7 +40,6 @@
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                     <a class="dropdown-item" href="{{ route('CSGO') }}"><img src="{{ asset('img/csgo_icon.png') }}" height="18px"> CS:GO</a>
-                    <a class="dropdown-item" href="{{ route('LOL') }}"><img src="{{ asset('img/lol_icon.png') }}" height="18px"> LOL</a>
                 </div>
             </li>
             @if (Auth::check())
@@ -56,10 +55,10 @@
         @guest
             <span class="navbar-text">
                 @if (Route::has('login'))
-                    <button type="button" class="btn btn-info"><a href='{{route('login')}}' alt='Signup'>Login</a></button>
+                    <button type="button" class="btn btn-info" style="background-color: #7477cd; border-color: #7477cd;"><a href='{{route('login')}}' alt='Signup'>Login</a></button>
                 @endif
                 @if (Route::has('register'))
-                    <button type="button" class="btn btn-info"><a href='{{route('register')}}' alt='Signup'>Signup</a></button>
+                    <button type="button" class="btn btn-info" style="background-color: #7477cd; border-color: #7477cd;"><a href='{{route('register')}}' alt='Signup'>Signup</a></button>
                 @endif
             </span>
         @else
@@ -95,6 +94,14 @@
 <div class="row justify-content-center pt-3 px-2">
     <div class="col-12">
         @if(Route::currentRouteName() !== 'Profile')
+            @if(Session::has('transactionStatus'))
+                <div class="alert alert-danger">
+                    {{ Session::get('transactionStatus') }}
+                    @php
+                        Session::forget('transactionStatus');
+                    @endphp
+                </div>
+            @endif
             <div class="row flex-column-reverse flex-xl-row">
                 @if (Auth::check())
                     <div class="col-xl-9">
@@ -121,17 +128,38 @@
 
                                 <form action="{{ route('Deposit') }}" method="POST">
                                     @csrf
-                                    <div class="row">
-                                        <div class="col-xl-4">
+                                    <div class="row d-flex justify-content-end">
+                                        <div class="col-xl-8">
                                             <input class="form-control form-control-md w-100 mt-1" type="text" placeholder="$$$" name="amount" min="5" required>
 
 
                                         </div>
                                         <div class="col-xl-4">
-                                            <button type="submit" class="btn btn-info w-100 mt-1"><a alt='Deposit'>Deposit</a></button>
+                                            <button type="submit" class="btn btn-info w-100 mt-1" style="background-color: #7477cd; border-color: #7477cd;"><a alt='Deposit'>Deposit</a></button>
                                         </div>
+                                    </div>
+                                    <small id="depositWithdrawHelp" class="form-text text-muted mx-1">There will be a fee on your transaction.
+                                        amount</small>
+                                    @if ($errors->any())
+                                        <div class="alert alert-danger mt-3">
+                                            <ul>
+                                                @foreach ($errors->all() as $error)
+                                                    <li>{{ $error }}</li>
+                                                @endforeach
+                                            </ul>
+                                        </div>
+                                    @endif
+                                </form>
+
+                                <form action="{{ route('Withdraw') }}" method="POST">
+                                    @csrf
+                                    <div class="row d-flex justify-content-end">
+                                        <div class="col-xl-8">
+                                            <input class="form-control form-control-md w-100 mt-1" type="text" placeholder="Tokens" name="amount" min="5" required>
+                                        </div>
+
                                         <div class="col-xl-4">
-                                            <button type="submit" class="btn btn-info w-100 mt-1">Withdraw</button>
+                                            <button type="submit" class="btn btn-info w-100 mt-1" style="background-color: #7477cd; border-color: #7477cd;">Withdraw</button>
                                         </div>
                                     </div>
                                     <small id="depositWithdrawHelp" class="form-text text-muted mx-1">There will be a fee on your transaction.
