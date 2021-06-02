@@ -95,7 +95,7 @@
                     @foreach($upcomingMatches as $upcomingMatch)
                         <div class="card mb-3" style="height: 150px;">
                             <div class="card-header">
-                                <small><b>{{ $upcomingMatch['match_start'] }}</b>< (ID: {{ $upcomingMatch['id'] }})</small>
+                                <small><b>{{ $upcomingMatch['match_start'] }}</b> (ID: {{ $upcomingMatch['id'] }})</small>
                                 <img class="float-right ml-2" src="{{ asset('img/csgo_icon.png') }}" width="18" height="18">
                                 <small class="float-sm-right">{{ $upcomingMatch['tournament_name'] }}</small>
 
