@@ -21,6 +21,7 @@ class CreateGamesTable extends Migration
                 $table->datetime('match_start');
                 $table->datetime('match_end')->nullable();
                 $table->string('map');
+                $table->string('game');
                 $table->string('tournament_name');
                 $table->text('tournament_banner');
                 $table->string('team_i_name');

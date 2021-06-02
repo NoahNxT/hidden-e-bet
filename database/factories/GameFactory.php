@@ -49,6 +49,7 @@ class GameFactory extends Factory
             'team_ii_name' => 'ViCi',
             'team_ii_icon' => 'https://i.imgur.com/1MMEeJT.png',
             'team_ii_factor' => 1.14,
+            'game' => $this->faker->randomElement(['csgo', 'lol'])
         ];
     }
 }

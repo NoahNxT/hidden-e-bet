@@ -21,9 +21,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [DashboardController::class, 'index'])->name('Dashboard');
-Route::get('/csgo', [CsgoController::class, 'index'])->name('CSGO');
 Route::get('/wallet', [WalletController::class, 'index'])->name('Wallet')->middleware('auth');
-Route::get('/details', [GameDetailsController::class, 'index'])->name('Details');
+Route::get('/csgo', [CsgoController::class, 'index'])->name('csgo');
 Route::get('/csgo/{id}', [GameDetailsController::class, 'index'])->name('csgoDetails');
 Route::get('/profile', [ProfileController::class, 'index'])->name('Profile')->middleware('auth');
 Route::post('/profile/update/username-or-withdraw-address', [ProfileController::class, 'usernameOrWithdrawAddress'])->name('ProfileUpdateUsernameOrWithdrawAddress')->middleware('auth');

@@ -39,7 +39,7 @@
                     Games
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                    <a class="dropdown-item" href="{{ route('CSGO') }}"><img src="{{ asset('img/csgo_icon.png') }}" height="18px"> CS:GO</a>
+                    <a class="dropdown-item" href="{{ route('csgo') }}"><img src="{{ asset('img/csgo_icon.png') }}" height="18px"> CS:GO</a>
                 </div>
             </li>
             @if (Auth::check())

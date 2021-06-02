@@ -38,6 +38,7 @@ class ApiController extends Controller
                         'team_ii_name' => $data['Team2'][0]['Name'],
                         'team_ii_icon' => $data['Team2'][0]['Logo'],
                         'team_ii_factor' => $data['Team2'][0]['Factor'],
+                        'game' => $data['Game']
                     ],
                 );
                 break;
@@ -48,7 +49,16 @@ class ApiController extends Controller
                         'status' => $data['Status'],
                         'match_start' => Carbon::parse($data['Time'] . " " . $data['Date'])->format('Y-m-d H:i:s'),
                         'match_end' => Carbon::now()->format('Y-m-d H:i:s'),
-                        'map' => $data['Maps'][0]['Map1'][0]['Name']
+                        'map' => $data['Maps'][0]['Map1'][0]['Name'],
+                        'tournament_name' => $data['Tournament'],
+                        'tournament_banner' => $data['Banner'],
+                        'team_i_name' => $data['Team1'][0]['Name'],
+                        'team_i_icon' => $data['Team1'][0]['Logo'],
+                        'team_i_factor' => $data['Team1'][0]['Factor'],
+                        'team_ii_name' => $data['Team2'][0]['Name'],
+                        'team_ii_icon' => $data['Team2'][0]['Logo'],
+                        'team_ii_factor' => $data['Team2'][0]['Factor'],
+                        'game' => $data['Game']
                     ],
                 );
                 break;
