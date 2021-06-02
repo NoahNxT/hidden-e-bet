@@ -60,7 +60,7 @@
                     </h5>
                 </div>
             </div>
-            @if($dataCsgo['Status'] !== 'Ended')
+            @if(in_array($dataCsgo['Status'] , ["Ended", "Warmup"]) == false)
                 <form wire:submit.prevent="submit" method="POST">
                     <div class="row d-flex justify-content-center align-items-center text-center mt-3">
 
