@@ -7,6 +7,7 @@ use Livewire\Component;
 
 class GameDetails extends Component
 {
+    public $gameId;
     public $dataCsgo;
     public $playerKills = [];
     public $playerNames = [];
@@ -34,10 +35,11 @@ class GameDetails extends Component
         }
     }
 
-    public function mount()
+    public function mount($gameId)
     {
+        $this->gameId = $gameId;
         //ray(json_decode(PreLoadGameData::where('id', 1)->get('data')[0]['data'], true))->die();
-        $this->newCsgoData(json_decode(PreLoadGameData::where('game_id', 1)->get('data')[0]['data'], true));
+        $this->newCsgoData(json_decode(PreLoadGameData::where('game_id', $this->gameId)->get('data')[0]['data'], true));
     }
 
     public function newCsgoData($data)
@@ -107,6 +109,7 @@ class GameDetails extends Component
 
 
         $this->emit('refreshComponent');
+
     }
 
     public function render()

@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use Database\Factories\PreLoadGameDataFactory;
 use Illuminate\Database\Seeder;
 
 class PreLoadGameDataSeeder extends Seeder
@@ -13,6 +14,6 @@ class PreLoadGameDataSeeder extends Seeder
      */
     public function run()
     {
-        //
+        PreLoadGameDataFactory::times(10)->create();
     }
 }

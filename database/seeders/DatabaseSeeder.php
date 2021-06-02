@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
                 UserSeeder::class,
                 TransactionHistorySeeder::class,
                 GameSeeder::class,
+                PreLoadGameDataSeeder::class,
                 BetHistorySeeder::class,
             ]
         );
