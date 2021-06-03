@@ -11,7 +11,7 @@ class BetHistory extends Model
 
     protected $fillable =
         [
-            'match_id',
+            'game_id',
             'user_id',
             'bet_amount',
             'bet_team',

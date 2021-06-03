@@ -2,12 +2,16 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\BetHistory;
 use App\Models\PreLoadGameData;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
 class GameDetails extends Component
 {
     public $gameId;
+    public $availableTokens;
     public $dataCsgo;
     public $playerKills = [];
     public $playerNames = [];
@@ -19,26 +23,66 @@ class GameDetails extends Component
     public $team1Percentage = 50;
     public $team2Percentage = 50;
     public $amountBet;
+    public $teamBet;
+
     protected $listeners = ['newCsgoData', 'refreshComponent' => '$refresh'];
+
 
     public function submit()
     {
         $validatedData = $this->validate(
             [
-                'amountBet' => 'required|min:5|numeric',
+                'amountBet' => 'required|min:5|max:' . $this->availableTokens . '|numeric',
+                'teamBet' => 'required'
+            ],
+            [
+                'teamBet.required' => 'You have to select a team.',
+                'amountBet.required' => 'The :attribute needs to be greater as 0.',
+                'amountBet.min' => 'The minimum :attribute is 5 tokens.',
+                'amountBet.max' => 'Insufficient funds!',
+                'amountBet.numeric' => 'Only use numbers.',
+            ],
+            ['amountBet' => 'bet']
+        );
+
+        if ($validatedData['teamBet'] === $this->dataCsgo['Team1'][0]['Name']) {
+            $factor = $this->dataCsgo['Team1'][0]['Factor'];
+        } else {
+            $factor = $this->dataCsgo['Team2'][0]['Factor'];
+        }
+        $previousBet = BetHistory::where(
+            [
+                'game_id' => $this->gameId,
+                'user_id' => Auth::user()->id,
+                'bet_team' => $validatedData['teamBet']
+            ]
+        )->first('bet_amount');
+
+
+        if($previousBet === null)
+        {
+            $betAmountUpdate = 0 + (int)$validatedData['amountBet'];
+        }
+
+        User::where('id', Auth::user()->id)->increment('in_bet_tokens', (int)$validatedData['amountBet']);
+        BetHistory::updateOrCreate(
+            [
+                'game_id' => $this->gameId,
+                'user_id' => Auth::user()->id,
+                'bet_team' => $validatedData['teamBet'],
+            ],
+            [
+                'bet_amount' => $betAmountUpdate,
+                'bet_factor' => $factor,
             ]
         );
-        if ($validatedData !== null) {
-            ray($validatedData);
-            $this->emit('refreshComponent');
-
-        }
+        $this->emit('refreshComponent');
     }
 
     public function mount($gameId)
     {
+        $this->availableTokens = Auth::user() ? (Auth::user()->tokens) - (Auth::user()->in_bet_tokens) : null;
         $this->gameId = $gameId;
-        //ray(json_decode(PreLoadGameData::where('id', 1)->get('data')[0]['data'], true))->die();
         $this->newCsgoData(json_decode(PreLoadGameData::where('game_id', $this->gameId)->get('data')[0]['data'], true));
     }
 
@@ -52,7 +96,7 @@ class GameDetails extends Component
         $this->playerMVPs = [];
         $this->dataCsgo = $data;
         $this->team2Score = $this->dataCsgo['Team2'][0]['Score'];
-        //ray( $this->dataCsgo)->die();
+        ray($this->dataCsgo);
 
         //ray('refreshed');
         for ($x = 1; $x <= 5; $x++) {
@@ -108,8 +152,9 @@ class GameDetails extends Component
         }
 
 
-        $this->emit('refreshComponent');
 
+
+        $this->emit('refreshComponent');
     }
 
     public function render()

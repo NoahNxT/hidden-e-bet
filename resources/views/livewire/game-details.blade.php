@@ -60,23 +60,35 @@
                     </h5>
                 </div>
             </div>
-            @if(in_array($dataCsgo['Status'] , ["Ended", "Warmup"]) == false)
+            @if(in_array($dataCsgo['Status'] , ["Ended", "Live" ,"Warmup"]) == false AND Auth::user())
                 <form wire:submit.prevent="submit" method="POST">
                     <div class="row d-flex justify-content-center align-items-center text-center mt-3">
-
-                        <div class="col-xl-3">
-                            <div class="input-group my-3 ">
+                        <div class="col-xl-4">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="team" id="team1" value="{{ $dataCsgo['Team1'][0]['Name'] ?? '' }}" wire:model="teamBet">
+                                <label class="form-check-label" for="inlineRadio1">{{ $dataCsgo['Team1'][0]['Name'] ?? '' }}</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="team" id="team2" value="{{ $dataCsgo['Team2'][0]['Name'] ?? '' }}" wire:model="teamBet">
+                                <label class="form-check-label" for="inlineRadio2">{{ $dataCsgo['Team2'][0]['Name'] ?? '' }}</label>
+                            </div>
+                            <div class="input-group my-3 w-70">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text">Tokens</span>
                                 </div>
                                 <input type="text" class="form-control" aria-label="Amount" wire:model="amountBet">
-
+                                <button type="submit" class="btn btn-primary w-25 ml-2" style="background-color: #7477cd; border-color: #7477cd;">Bet</button>
                             </div>
+                            @error('amountBet') <span class="error text-danger">{{ $message }}</span> @enderror
+                            <br>
+                            @error('teamBet') <span class="error text-warning">{{ $message }}</span> @enderror
+
+
                         </div>
-                        <div class="col-xl-1">
-                            <button type="submit" class="btn btn-primary w-100" style="background-color: #7477cd; border-color: #7477cd;">Bet</button>
-                        </div>
+
                     </div>
+
+
                 </form>
             @endif
         </div>

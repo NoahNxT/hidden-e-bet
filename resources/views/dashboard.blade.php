@@ -6,7 +6,7 @@
             <div class="row">
                 <div class="col-xl-6">
                     <div class="h3">Live</div>
-                    @if(!$warmupMatches->isEmpty() and !$liveMatches->isEmpty())
+                    @if(!$warmupMatches->isEmpty() or !$liveMatches->isEmpty())
                         @foreach($warmupMatches as $warmupMatch)
                             <div class="card mb-3">
                                 <div class="card-header">

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BetHistory;
 use App\Models\Game;
 use App\Models\PreLoadGameData;
 use App\Models\TransactionHistory;
@@ -61,6 +62,42 @@ class ApiController extends Controller
                         'game' => $data['Game']
                     ],
                 );
+
+
+
+
+                if ($data['Team1'][0]['Score'] === 16) {
+                    $winner =$data['Team1'][0]['Name'];
+                } else {
+                    $winner =$data['Team2'][0]['Name'];
+                }
+
+
+                    $bets = BetHistory::where(['game_id' => $data['Match_id']])->get();
+
+
+                    foreach ($bets as $bet) {
+                        $profit = floor($bet->bet_amount * $bet->bet_factor) - $bet->bet_amount;
+                        if ($bet->bet_team === $winner) {
+                            $bet->update(['profit' => $profit]);
+                            $bet->update(['win_or_lose' => 'win']);
+                            User::where('id', $bet->user_id)->increment('tokens', $profit);
+                            User::where('id', $bet->user_id)->decrement('in_bet_tokens', $bet->bet_amount);
+                        } else {
+                            $bet->update(['profit' => 0]);
+                            $bet->update(['win_or_lose' => 'lose']);
+                            User::where('id', $bet->user_id)->decrement('tokens', $bet->bet_amount);
+                            User::where('id', $bet->user_id)->decrement('in_bet_tokens', $bet->bet_amount);
+                        }
+                    }
+
+
+
+
+
+
+
+
                 break;
         }
 
