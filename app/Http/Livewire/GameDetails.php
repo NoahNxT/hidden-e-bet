@@ -62,6 +62,8 @@ class GameDetails extends Component
         if($previousBet === null)
         {
             $betAmountUpdate = 0 + (int)$validatedData['amountBet'];
+        }else{
+            $betAmountUpdate = $previousBet->bet_amount + (int)$validatedData['amountBet'];
         }
 
         User::where('id', Auth::user()->id)->increment('in_bet_tokens', (int)$validatedData['amountBet']);
@@ -77,6 +79,7 @@ class GameDetails extends Component
             ]
         );
         $this->emit('refreshComponent');
+        $this->emit('wallet-card');
     }
 
     public function mount($gameId)

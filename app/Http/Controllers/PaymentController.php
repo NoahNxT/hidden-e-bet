@@ -46,7 +46,7 @@ class PaymentController extends Controller
         ];
 
         $invoice = $btc_wallet->create_invoice($param);
-            //ray($invoice);
+            ray($invoice);
         $this->pending($invoice, $tokens);
 
 
