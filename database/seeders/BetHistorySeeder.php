@@ -15,8 +15,7 @@ class BetHistorySeeder extends Seeder
      */
     public function run()
     {
-        BetHistoryFactory::times(10)->withUserNoah()->create();
+        BetHistoryFactory::times(10)->create();
 
-        TransactionHistoryFactory::times(100)->withRandomUser()->create();
     }
 }
