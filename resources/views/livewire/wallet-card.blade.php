@@ -68,45 +68,46 @@
                 @endif
             </form>
             <hr class="mt-3">
+            @if( count($upcomingGames) )
             <h6>Bets</h6>
             <br>
-            <div class="row">
-                <div class="col-xl-6">
-                    <p class="text-body"><img src="{{ asset('img/csgo_icon.png') }}" width="24" height="24"> G2 vs Liquid </p>
-                    <p class="text-body"><img src="{{ asset('img/csgo_icon.png') }}" width="24" height="24"> G2 vs Liquid </p>
-                    <p class="text-body"><img src="{{ asset('img/csgo_icon.png') }}" width="24" height="24"> G2 vs Liquid </p>
+            @foreach($upcomingGames as $upcomingGame)
+                <div class="row">
+                    <div class="col-xl-6">
+                        <p class="text-body"><img src="{{ asset('img/'.$upcomingGame[0]->game.'_icon.png') ?? ''}}" width="24" height="24"> {{ $upcomingGame[0]->team_i_name ?? ''}}
+                            vs {{ $upcomingGame[0]->team_ii_name ?? '' }} </p>
+                    </div>
+                    <div class="col-xl-3">
+                        <p class="text-body">{{ $upcomingGame[1] ?? '' }} TOKENS</p>
+                    </div>
+                    <div class="col-xl-3">
+                        <p class="text-body"><b>{{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $upcomingGame[0]->match_start)->format('H:i A') ?? '' }}</b></p>
+
+                    </div>
                 </div>
-                <div class="col-xl-3">
-                    <p class="text-body">1360 TOKENS</p>
-                    <p class="text-body">1360 TOKENS</p>
-                    <p class="text-body">1360 TOKENS</p>
-                </div>
-                <div class="col-xl-3">
-                    <p class="text-body"><b>6PM</b></p>
-                    <p class="text-body"><b>8.30PM</b></p>
-                    <p class="text-body"><b>12.30PM</b></p>
-                </div>
-            </div>
+            @endforeach
+            @endif
             <hr>
-            <h6 class="text-danger">• Live</h6>
+            @if( count($liveGames) )
+            <h6 class="text-danger">• Live Bets</h6>
             <br>
-            <div class="row">
-                <div class="col-xl-6">
-                    <p class="text-danger"><img src="{{ asset('img/csgo_icon.png') }}" width="24" height="24"> G2 vs Liquid </p>
-                    <p class="text-danger"><img src="{{ asset('img/csgo_icon.png') }}" width="24" height="24"> G2 vs Liquid </p>
-                    <p class="text-danger"><img src="{{ asset('img/csgo_icon.png') }}" width="24" height="24"> G2 vs Liquid </p>
-                </div>
-                <div class="col-xl-3">
-                    <p class="text-body">1360 TOKENS</p>
-                    <p class="text-body">1360 TOKENS</p>
-                    <p class="text-body">1360 TOKENS</p>
-                </div>
-                <div class="col-xl-3">
-                    <p class="text-body"><b>22 mins</b></p>
-                    <p class="text-body"><b>2h 15min</b></p>
-                    <p class="text-body"><b>3h 1min</b></p>
-                </div>
-            </div>
+                @foreach($liveGames as $liveGame)
+                    <div class="row">
+                        <div class="col-xl-6">
+                            <p class="text-body"><img src="{{ asset('img/'.$liveGame[0]->game.'_icon.png') ?? '' }}" width="24" height="24"> {{ $liveGame[0]->team_i_name ?? ''}}
+                                vs {{ $liveGame[0]->team_ii_name ?? ''}} </p>
+                        </div>
+                        <div class="col-xl-3">
+                            <p class="text-body">{{ $liveGame[1] ?? '' }} TOKENS</p>
+                        </div>
+                        <div class="col-xl-3">
+                            <p class="text-body"><b>{{ \Carbon\Carbon::createFromFormat('Y-m-d H:i:s', $liveGame[0]->match_start)->format('H:i A') ?? '' }}</b>
+                            </p>
+
+                        </div>
+                    </div>
+                @endforeach
+            @endif
         </div>
     </div>
 </div>

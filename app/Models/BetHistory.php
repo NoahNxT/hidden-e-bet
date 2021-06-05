@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class BetHistory extends Model
 {
@@ -26,7 +27,7 @@ class BetHistory extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function game()
+    public function game() : belongsTo
     {
         return $this->belongsTo(Game::class);
     }
