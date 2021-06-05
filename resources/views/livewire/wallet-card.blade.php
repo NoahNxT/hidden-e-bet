@@ -67,8 +67,8 @@
                     </div>
                 @endif
             </form>
-            <hr class="mt-3">
             @if( count($upcomingGames) )
+            <hr class="mt-3">
             <h6>Bets</h6>
             <br>
             @foreach($upcomingGames as $upcomingGame)
@@ -87,8 +87,8 @@
                 </div>
             @endforeach
             @endif
-            <hr>
             @if( count($liveGames) )
+            <hr class="mt-3">
             <h6 class="text-danger">• Live Bets</h6>
             <br>
                 @foreach($liveGames as $liveGame)
