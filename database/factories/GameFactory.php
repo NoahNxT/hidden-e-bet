@@ -24,16 +24,13 @@ class GameFactory extends Factory
     {
         $match_start = null;
         $match_end = null;
-        $status = $this->faker->randomElement(['upcoming', 'live', 'ended']);
+        $status = $this->faker->randomElement(['Upcoming', 'Ended']);
         $randomDay = rand(0, 365);
         switch ($status) {
-            case "upcoming":
+            case "Upcoming":
                 $match_start = Carbon::now()->addDays($randomDay);
                 break;
-            case "live":
-                $match_start = Carbon::now()->subMinutes(10);
-                break;
-            case "ended":
+            case "Ended":
                 $match_start = Carbon::now()->subDays($randomDay);
                 $match_end = Carbon::now()->subDays($randomDay)->addHours(1);
                 break;
@@ -44,6 +41,15 @@ class GameFactory extends Factory
             'match_start' => $match_start,
             'match_end' => $match_end,
             'map' => 'Dust2',
+            'tournament_name' => 'Factory Filled',
+            'tournament_banner' => 'https://i.imgur.com/XMLQFcV.jpg',
+            'team_i_name' => 'ASTRALIS',
+            'team_i_icon' => 'https://i.imgur.com/QNh28pt.png',
+            'team_i_factor' => 1.86,
+            'team_ii_name' => 'ViCi',
+            'team_ii_icon' => 'https://i.imgur.com/1MMEeJT.png',
+            'team_ii_factor' => 1.14,
+            'game' => $this->faker->randomElement(['csgo', 'lol'])
         ];
     }
 }

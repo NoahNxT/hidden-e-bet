@@ -25,7 +25,7 @@ class BetHistoryFactory extends Factory
     {
         $betAmount = rand(1, 200);
         $betFactor = mt_rand(100, 200) / 100;
-        $winLose =  $this->faker->randomElement(['win', 'lose']);
+        $winLose = $this->faker->randomElement(['win', 'lose']);
 
         $profit = match ($winLose) {
             'win' => round($betAmount / $betFactor, 0, PHP_ROUND_HALF_DOWN),
@@ -34,6 +34,7 @@ class BetHistoryFactory extends Factory
 
         return [
             'game_id' => Game::all()->random(),
+            'user_id' => User::all()->random(),
             'bet_amount' => $betAmount,
             'bet_team' => $this->faker->randomElement(
                 ['ViCi', 'Astralis', 'Fnatic', 'VirtusPro', 'Mousesports', 'NaVi']
@@ -44,17 +45,5 @@ class BetHistoryFactory extends Factory
         ];
     }
 
-    public function withUserNoah()
-    {
-        return $this->state([
-            'user_id' => 1
-        ]);
-    }
 
-    public function withRandomUser()
-    {
-        return $this->state([
-            'user_id' => User::all()->random(),
-        ]);
-    }
 }

@@ -22,8 +22,8 @@ class CreateBetHistoriesTable extends Migration
                 $table->integer('bet_amount');
                 $table->string('bet_team');
                 $table->float('bet_factor');
-                $table->enum('win_or_lose', ['win', 'lose']);
-                $table->bigInteger('profit');
+                $table->enum('win_or_lose', ['win', 'lose', 'pending'])->default('pending');
+                $table->bigInteger('profit')->nullable();
                 $table->timestamps();
 
                 $table->foreign('user_id')
@@ -32,7 +32,8 @@ class CreateBetHistoriesTable extends Migration
 
                 $table->foreign('game_id')
                     ->references('id')
-                    ->on('games');
+                    ->on('games')
+                ->cascadeOnDelete();
             }
         );
     }

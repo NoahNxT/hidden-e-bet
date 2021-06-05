@@ -11,13 +11,11 @@
                                 <div class="col d-flex flex-column flex-sm-row justify-content-between mb-3">
                                     <div class="text-center text-sm-left mb-2 mb-sm-0">
                                         <h4 class="pt-sm-2 pb-1 mb-0 text-nowrap">{{ Auth::user()->username }}</h4>
-                                        <div class="text-muted"><small>Last seen 2 hours ago</small></div>
 
                                     </div>
                                     <div class="text-center text-sm-right">
-                                        <span class="badge badge-secondary">administrator</span>
                                         <div class="text-muted"><small>Member since
-                                                <div class="text-info">{{ Auth::user()->created_at }}</div>
+                                                <div class="text-info">{{ Auth::user()->created_at->diffForHumans() }}</div>
                                             </small></div>
                                     </div>
                                 </div>
@@ -124,28 +122,6 @@
                                                 </div>
                                             </form>
                                         </div>
-                                        <div class="col-12 col-sm-5 offset-sm-1 mb-3">
-                                            <div class="mb-2"><b>Keeping in Touch</b></div>
-                                            <div class="row">
-                                                <div class="col">
-                                                    <label>Email Notifications</label>
-                                                    <div class="custom-controls-stacked px-2">
-                                                        <div class="custom-control custom-checkbox">
-                                                            <input type="checkbox" class="custom-control-input" id="notifications-blog" checked="">
-                                                            <label class="custom-control-label" for="notifications-blog">Blog posts</label>
-                                                        </div>
-                                                        <div class="custom-control custom-checkbox">
-                                                            <input type="checkbox" class="custom-control-input" id="notifications-news" checked="">
-                                                            <label class="custom-control-label" for="notifications-news">Newsletter</label>
-                                                        </div>
-                                                        <div class="custom-control custom-checkbox">
-                                                            <input type="checkbox" class="custom-control-input" id="notifications-offers" checked="">
-                                                            <label class="custom-control-label" for="notifications-offers">Personal Offers</label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -158,7 +134,7 @@
                 <div class="card mb-3">
                     <div class="card-body">
                         <div class="px-xl-3">
-                            <button class="btn btn-block btn-secondary">
+                            <button class="btn btn-block btn-danger">
                                 <i class="fa fa-sign-out"></i>
                                 <a class="text-white" href="{{ route('logout') }}"
                                    onclick="event.preventDefault();
@@ -171,13 +147,6 @@
                                 </form>
                             </button>
                         </div>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-body">
-                        <h6 class="card-title font-weight-bold">Support</h6>
-                        <p class="card-text">Get fast, free help from our friendly assistants.</p>
-                        <button type="button" class="btn btn-primary">Contact Us</button>
                     </div>
                 </div>
             </div>
