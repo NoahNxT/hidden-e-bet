@@ -47,7 +47,7 @@ class TransactionHistory extends Model
         'user_id',
         'invoice_id',
         'transaction',
-        'btc_amount',
+        'tcn_amount',
         'usd_amount',
         'transferred_tokens',
         'txid',

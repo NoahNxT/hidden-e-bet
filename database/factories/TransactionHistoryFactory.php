@@ -23,13 +23,13 @@ class TransactionHistoryFactory extends Factory
      */
     public function definition(): array
     {
-        $btc_wallet = new Coinremitter('BTC');
-        $rate = $btc_wallet->get_coin_rate();
+        $tcn_wallet = new Coinremitter('TCN');
+        $rate = $tcn_wallet->get_coin_rate()['data']['TCN']['price'];
 
 
-        $randomBtcAmount = number_format(mt_rand(0.00010000 * 100000, 0.00050000 * 100000) / 100000, 8);
-        $btcToUsd = number_format($rate['data']['BTC']['price'] * $randomBtcAmount, 8);
-        $convertUsdToTokens = number_format(round($btcToUsd * 0.77, 0, PHP_ROUND_HALF_DOWN), 0);
+        $randomTcnAmount = number_format(mt_rand(1, 50), 8);
+        $tcnToUsd = number_format($rate * $randomTcnAmount, 8);
+        $convertUsdToTokens = number_format(round($tcnToUsd * 0.65, 0, PHP_ROUND_HALF_DOWN), 0);
         $status = $this->faker->randomElement(
             ['Pending', 'Paid', 'Under paid', 'Over paid', 'Expired', 'Cancelled']
         );
@@ -46,8 +46,8 @@ class TransactionHistoryFactory extends Factory
         return [
 
             'transaction' => $transaction,
-            'btc_amount' => $randomBtcAmount,
-            'usd_amount' => $btcToUsd,
+            'tcn_amount' => $randomTcnAmount,
+            'usd_amount' => $tcnToUsd,
             'transferred_tokens' => $convertUsdToTokens,
             'status' => $status,
             'txid' => $txid,
@@ -60,7 +60,7 @@ class TransactionHistoryFactory extends Factory
             [
                 'user_id' => 1,
                 'invoice_url' => 'https://fakeinvoiceurl.com/' . $x,
-                'invoice_id' => 'BTC' . $x,
+                'invoice_id' => 'TCN' . $x,
             ]
         );
     }
@@ -72,7 +72,7 @@ class TransactionHistoryFactory extends Factory
             [
                 'user_id' => User::all()->random(),
                 'invoice_url' => 'https://fakeinvoiceurl.com/' . $invoice_id,
-                'invoice_id' => 'BTC' . $invoice_id
+                'invoice_id' => 'TCN' . $invoice_id
             ]
         );
     }

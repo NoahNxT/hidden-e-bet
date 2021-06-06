@@ -119,8 +119,8 @@ class ApiController extends Controller
     {
         /*  ray($request);*/
 
-        $convertBtcToTokens = floor($request->usd_amount * 0.77);
-        $convertBtcToTokensWithdraw = floor($request->usd_amount * 0.77);
+        $convertUsdToTokens = floor($request->usd_amount * 0.65);
+        $convertTcnToTokensWithdraw = floor($request->usd_amount * 0.65);
 
         $transaction = TransactionHistory::where('invoice_id', $request->invoice_id)->first();
 
@@ -133,7 +133,7 @@ class ApiController extends Controller
             case 'Under paid':
             case 'Paid':
                 $transaction->update(['status' => $request->status]);
-                User::where('id', $transaction->user_id)->increment('tokens', $convertBtcToTokens);
+                User::where('id', $transaction->user_id)->increment('tokens', $convertUsdToTokens);
                 break;
 
             default:

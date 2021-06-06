@@ -18,7 +18,7 @@ class CreateTransactionHistoriesTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->text('invoice_id');
             $table->enum('transaction', ['deposit', 'withdraw']);
-            $table->float('btc_amount', 15,8);
+            $table->float('tcn_amount', 15,8);
             $table->float('usd_amount', 15, 8);
             $table->integer('transferred_tokens');
             $table->text('txid')->nullable();

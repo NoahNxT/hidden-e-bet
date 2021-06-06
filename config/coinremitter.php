@@ -1,8 +1,8 @@
 <?php
 
 return [
-    'BTC'=>[
-        'API_KEY'=>'$2y$10$UMYpXGnyiOWh3dGeiAmdDu/ty25WzrA3ljyiwyeC540iB1GKwO75e',
-        'PASSWORD'=>'246u3reIAvNa',
+    'TCN'=>[
+        'API_KEY'=>'$2y$10$9I7wku9900nkxYPwziDDPOPc.yCQJoiqH4QhW/4lb.fqQQOP99BW6',
+        'PASSWORD'=>'vEW18RPZ5Lus',
     ],
 ];
