@@ -22,54 +22,66 @@ class PaymentController extends Controller
 
     public function deposit(DepositWithdrawRequest $request)
     {
-        $btc_wallet = new Coinremitter('BTC');
-        $rate = $btc_wallet->get_coin_rate();
-        /*ray($rate);*/
-        $tokens = $request->amount;
-        (float)$convertUsdToBtc = ((1 / $rate['data']['BTC']['price']) * ($tokens)) * 1.23;
+        // Create new connection with wallet of TryptoBet on Coinremitter
+        $tcn_wallet = new Coinremitter('TCN');
 
+        // 1 TCN is 1$ (1BTC was 31630$ for example)
+        $rate = $tcn_wallet->get_coin_rate()['data']['TCN']['price'];
+
+        //Amount money the user wants to buy tokens for
+        $deposit = $request->amount;
+
+        //universal conversion formula to convert $ into crypto coin
+        // including the transaction fee of CoinRemitter of 23% and the 12% fee Trypto Bet takes as profit
+        $convertUsdToTcn = ((1 / $rate) * ($deposit)) * 1.35;
+
+        //Necessary parameters needed for creating the paywall
         $param = [
-            'amount' => number_format($convertUsdToBtc, 8),
-            //required.
+            // you need may only have 8 decimals in your number
+            // in BTC for example a transaction is mostly super small in amount
+            // of coins like 0.00000015 BTC
+            'amount' => number_format($convertUsdToTcn, 8),
+            //Currency of the user deposit
+            'currency' => 'usd',
+            // API link we made to send the transaction responses to of the webhook
             'notify_url' => env('NGROK_LINK') . '/api/v1/payment',
-            //optional,url on which you wants to receive notification,
+            //If the transaction fails, you redirect to this link
             'fail_url' => env('APP_URL'),
-            //optional,url on which user will be redirect if user cancel invoice,
+            //If the transaction is successful, you redirect to this link (home in this case)
             'suceess_url' => env('APP_URL'),
-            //optional,url on which user will be redirect when invoice paid,
-            'name' => Auth::user()->name,
-            //optional,
+            //Username will be added so we have a reference on the invoices,
+            'name' => Auth::user()->username,
+            //How many minutes you have before the paywall session expires,
             'expire_time' => '20',
-            //optional, invoice will expire in 20 minutes.
-            'description' => 'Deposit of funds into Hidden E-Bet',
-            //optional.
+            //Description of the transaction.
+            'description' => 'Deposit of funds into Trypto Bet, to the wallet of ' . Auth::user(
+                )->username . ' with ID ' . Auth::user()->id,
         ];
 
-        $invoice = $btc_wallet->create_invoice($param);
-            ray($invoice);
-        $this->pending($invoice, $tokens);
+        //Create invoice for transaction on the paywall
+        $invoice = $tcn_wallet->create_invoice($param);
+
+        //Create transaction in transaction history in DB
+        $this->pending($invoice, $deposit);
 
 
         return redirect($invoice['data']['url']);
     }
 
-    public function pending(array $invoice, int $tokens)
+    public function pending(array $invoice, int $deposit)
     {
-        /*Set status to pending payment (not yet payed) */
-        //ray($invoice);
-
+        //Set status to pending payment (not yet payed)
         if ($invoice['data']['status'] === 'Pending') {
-            $transactionRecord = TransactionHistory::create(
+            $transaction = TransactionHistory::create(
                 [
                     'user_id' => Auth::user()->id,
                     'invoice_id' => $invoice['data']['invoice_id'],
                     'transaction' => 'deposit',
-                    'btc_amount' => $invoice['data']['total_amount']['BTC'],
+                    'tcn_amount' => $invoice['data']['total_amount']['TCN'],
                     'usd_amount' => $invoice['data']['total_amount']['USD'],
-                    'transferred_tokens' => $tokens,
+                    'transferred_tokens' => $deposit,
                     'invoice_url' => $invoice['data']['url'],
                     'status' => $invoice['data']['status'],
-
                 ]
             );
         }
@@ -77,58 +89,79 @@ class PaymentController extends Controller
 
     public function withdraw(DepositWithdrawRequest $request)
     {
-        $btc_wallet = new Coinremitter('BTC');
-        $rate = $btc_wallet->get_coin_rate();
-        $amountUsd = $request->amount;
-        (float)$convertUsdToBtc = round(
-            ((1 / $rate['data']['BTC']['price']) * ($amountUsd)) * 0.77,
+        // Create new connection with wallet of TryptoBet on Coinremitter
+        $tcn_wallet = new Coinremitter('TCN');
+
+        // 1 TCN is 1$ (1BTC was 31630$ for example)
+        $rate = $tcn_wallet->get_coin_rate()['data']['TCN']['price'];
+
+        //Amount money the user wants to buy tokens for
+        $withdrawAmount = $request->amount;
+
+        //universal conversion formula to convert tokens into crypto coin
+        // including the transaction fee of CoinRemitter of 23% and the 12% fee Trypto Bet takes as profit
+        $convertTokensToTcn = round(
+            ((1 / $rate) * ($withdrawAmount)) * 0.65,
             8,
             PHP_ROUND_HALF_DOWN
         );
 
+        //
+        $usd = ($withdrawAmount * $rate) * 0.65;
+
         $param1 = [
+            //Deposit address of the clients crypto wallet
             'address' => Auth::user()->withdraw_key
         ];
 
-        $validate = $btc_wallet->validate_address($param1);
-        if ($validate['data']['valid'] === true) {
+        //Validate if deposit address is valid
+        $validate = $tcn_wallet->validate_address($param1);
 
-                $param2 = [
-                    'to_address' => Auth::user()->withdraw_key,
-                    'amount' => $convertUsdToBtc
-                ];
-                $withdraw = $btc_wallet->withdraw($param2);
-                //ray($withdraw)->die();
-            if ($withdraw['msg'] !== ' There is insufficient balance in your wallet.') {
-                $this->withdrawTransaction($withdraw, $amountUsd);
-                return back()->with('transactionStatus', 'Transaction Complete! Your money is on its way!');
+        //If deposit address is valid, start of withdraw transaction procedure
+        if ($validate['data']['valid']) {
+            $param2 = [
+                //Deposit address of the clients crypto wallet
+                'to_address' => Auth::user()->withdraw_key,
+                //Amount of crypto after fees that will be transferred to wallet of client
+                'amount' => $convertTokensToTcn
+            ];
+
+            //Withdraw crypto to wallet of client
+            $withdraw = $tcn_wallet->withdraw($param2);
+
+            if ($withdraw['msg'] === ' There is insufficient balance in your wallet.') {
+                return back()->with(
+                    'transactionStatus',
+                    'There is insufficient balance on Trypto Bet, let us refill our balance...'
+                );
             }
 
-            return back()->with('transactionStatus', 'There is insufficient balance on Trypto Bet, let us refill our balance...');
+            $this->withdrawTransaction($withdraw, $usd, $withdrawAmount);
+
+            return back()->with('transactionStatus', 'Transaction Complete! Your money is on its way!');
         }
 
         return back()->with('transactionStatus', 'Transaction Failed! No valid Withdraw address was given!');
     }
 
-    public function withdrawTransaction(array $withdraw, int $amountUsd)
+    public function withdrawTransaction(array $withdraw, float $usd, int $tokens)
     {
-        if ($withdraw['data']['type'] === 'receive') {
-            $transactionRecord = TransactionHistory::create(
+        if ($withdraw['action'] === 'withdraw') {
+            $transaction = TransactionHistory::create(
                 [
                     'user_id' => Auth::user()->id,
                     'invoice_id' => $withdraw['data']['id'],
                     'transaction' => 'withdraw',
-                    'btc_amount' => $withdraw['data']['amount'],
-                    'usd_amount' => $amountUsd,
-                    'transferred_tokens' => $amountUsd,
+                    'tcn_amount' => $withdraw['data']['amount'],
+                    'usd_amount' => $usd,
+                    'transferred_tokens' => $tokens,
                     'invoice_url' => $withdraw['data']['explorer_url'],
                     'status' => 'Withdraw',
                     'txid' => $withdraw['data']['txid']
                 ]
             );
 
-            User::where('id', Auth::user()->id)->decrement('tokens', $amountUsd);
-
+            User::where('id', Auth::user()->id)->decrement('tokens', $tokens);
         }
     }
 }
