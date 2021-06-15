@@ -29,9 +29,6 @@ class CoinRemitterWebhookApiTest extends TestCase
                 'status' => 'Pending',
                 'usd_amount' => 0.00052645
             ]
-        );
-
-        $response
-            ->assertStatus(200);
+        )->assertStatus(200);
     }
 }
