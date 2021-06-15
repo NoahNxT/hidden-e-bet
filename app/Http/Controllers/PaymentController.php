@@ -62,6 +62,7 @@ class PaymentController extends Controller
         //Create invoice for transaction on the paywall
         $invoice = $tcn_wallet->create_invoice($param);
 
+        var_dump($invoice);
         //Create transaction in transaction history in DB
         $this->pending($invoice, $deposit);
 
