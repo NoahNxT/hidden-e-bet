@@ -22,7 +22,7 @@ class PaymentController extends Controller
 
     public function deposit(DepositWithdrawRequest $request)
     {
-        dd(route('') . '/api/v1/payment');
+        //ray(route('Dashboard') . '/api/v1/payment')->die();
         // Create new connection with wallet of TryptoBet on Coinremitter
         $tcn_wallet = new Coinremitter('TCN');
 
@@ -45,11 +45,11 @@ class PaymentController extends Controller
             //Currency of the user deposit
             'currency' => 'usd',
             // API link we made to send the transaction responses to of the webhook
-            'notify_url' => route('') . '/api/v1/payment',
+            'notify_url' => route('Dashboard') . '/api/v1/payment',
             //If the transaction fails, you redirect to this link
-            'fail_url' => env('APP_URL'),
+            'fail_url' => route('Dashboard'),
             //If the transaction is successful, you redirect to this link (home in this case)
-            'suceess_url' => env('APP_URL'),
+            'suceess_url' => route('Dashboard'),
             //Username will be added so we have a reference on the invoices,
             'name' => Auth::user()->username,
             //How many minutes you have before the paywall session expires,
