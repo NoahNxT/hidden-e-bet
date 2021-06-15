@@ -22,6 +22,7 @@ class PaymentController extends Controller
 
     public function deposit(DepositWithdrawRequest $request)
     {
+        dd(route('') . '/api/v1/payment');
         // Create new connection with wallet of TryptoBet on Coinremitter
         $tcn_wallet = new Coinremitter('TCN');
 
@@ -44,7 +45,7 @@ class PaymentController extends Controller
             //Currency of the user deposit
             'currency' => 'usd',
             // API link we made to send the transaction responses to of the webhook
-            'notify_url' => env('NGROK_LINK') . '/api/v1/payment',
+            'notify_url' => route('') . '/api/v1/payment',
             //If the transaction fails, you redirect to this link
             'fail_url' => env('APP_URL'),
             //If the transaction is successful, you redirect to this link (home in this case)

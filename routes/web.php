@@ -20,6 +20,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+$app_url = config("app.url");
+if (!empty($app_url)) {
+    URL::forceRootUrl($app_url);
+    $schema = explode(':', $app_url)[0];
+    URL::forceScheme($schema);
+}
+
 Route::get('/', [DashboardController::class, 'index'])->name('Dashboard');
 Route::get('/wallet', [WalletController::class, 'index'])->name('Wallet')->middleware('auth');
 Route::get('/csgo', [CsgoController::class, 'index'])->name('csgo');
