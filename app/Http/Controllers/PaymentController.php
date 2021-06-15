@@ -47,9 +47,9 @@ class PaymentController extends Controller
             // API link we made to send the transaction responses to of the webhook
             'notify_url' => route('Dashboard') . '/api/v1/payment',
             //If the transaction fails, you redirect to this link
-            'fail_url' => route('Dashboard'),
+            'fail_url' => env('TOR_URL'),
             //If the transaction is successful, you redirect to this link (home in this case)
-            'suceess_url' => route('Dashboard'),
+            'suceess_url' => env('TOR_URL'),
             //Username will be added so we have a reference on the invoices,
             'name' => Auth::user()->username,
             //How many minutes you have before the paywall session expires,
