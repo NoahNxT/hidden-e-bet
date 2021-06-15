@@ -18,6 +18,6 @@ class WalletController extends BaseController
     {
         $transactionHistory = TransactionHistory::where('user_id', Auth::user()->id)->orderBy('created_at', 'desc')->paginate(5,['*'], 'transactions');
         $betHistory = BetHistory::where('user_id', Auth::user()->id)->orderBy('created_at', 'desc')->paginate(5, ['*'], 'bets');
-        return view('Wallet', compact('transactionHistory', 'betHistory'));
+        return view('wallet', compact('transactionHistory', 'betHistory'));
     }
 }
