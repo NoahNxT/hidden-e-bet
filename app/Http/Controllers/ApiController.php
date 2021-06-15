@@ -63,9 +63,6 @@ class ApiController extends Controller
                     ],
                 );
 
-
-
-
                 if ($data['Team1'][0]['Score'] === 16) {
                     $winner =$data['Team1'][0]['Name'];
                 } else {
@@ -90,12 +87,6 @@ class ApiController extends Controller
                             User::where('id', $bet->user_id)->decrement('in_bet_tokens', $bet->bet_amount);
                         }
                     }
-
-
-
-
-
-
 
 
                 break;
